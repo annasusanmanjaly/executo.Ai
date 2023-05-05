@@ -3,12 +3,20 @@ import bg from '../assets/bg.png'
 import logo from '../assets/logo.png'
 import 'react-phone-number-input/style.css'
 import PhoneInput from 'react-phone-number-input'
+import google from '../assets/google.png'
+import facebook from '../assets/fb.png'
+import twitter from '../assets/twitter.png'
+import { Link } from 'react-router-dom';
+import Otp from '../pages/Otp/Otp'
 function Login() {
-     const [value, setValue] = useState('')
-     const [isDisabled, setIsDisabled] = useState(true);
-
+    const [value, setValue] = useState('')
+    const [isDisabled, setIsDisabled] = useState(true);
+    const [isloggedin,setIsloggedin] = useState(true)
+    const handleSubmit = () =>{
+      setIsloggedin(!isloggedin)
+    }
     const handleInputChange = (value) => {
-        if (value && value.length === 13) {
+        if (value && value.length >= 13) {
           setIsDisabled(false);
         } else {
           setIsDisabled(true);
@@ -17,6 +25,7 @@ function Login() {
      };
   return (
     <div>
+      { isloggedin ? 
       <div className='flex justify-center items-center flex-col'>
       <div className="relative">
         <img src={bg} alt="background" />
@@ -39,11 +48,19 @@ function Login() {
                 : 'bg-teal-500  text-white'
             }`}
             disabled={isDisabled}
+            onClick={handleSubmit}
           >
             Get OTP
           </button>
+         <p className='mt-5'>or</p>
+         <div className='flex flex-row gap-10 mt-3'>
+            <img src={google}/>
+            <img src={facebook}/>
+            <img src={twitter}/>
+         </div>
         </div>
       </div>
+      : <Otp/>}
     </div>
   )
 }
