@@ -1,9 +1,9 @@
 import React from 'react'
-
+import Otpbox from '../components/otp/Otpbox'
 function Otp() {
   return (
     <div>
-      <h1>hello world</h1>
+      <Otpbox/>
     </div>
   )
 }
