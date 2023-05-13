@@ -1,5 +1,5 @@
 import React from 'react'
-import Otpbox from '../components/otp/Otpbox'
+import Otpbox from '../../components/otp/Otpbox'
 function Otp() {
   return (
     <div>
