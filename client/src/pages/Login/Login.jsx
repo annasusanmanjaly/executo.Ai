@@ -1,13 +1,13 @@
 import React,{useState} from 'react'
-import bg from '../assets/bg.png'
-import logo from '../assets/logo.png'
+import bg from '../../assets/bg.png'
+import logo from '../../assets/logo.png'
 import 'react-phone-number-input/style.css'
 import PhoneInput from 'react-phone-number-input'
-import google from '../assets/google.png'
-import facebook from '../assets/fb.png'
-import twitter from '../assets/twitter.png'
+import google from '../../assets/google.png'
+import facebook from '../../assets/fb.png'
+import twitter from '../../assets/twitter.png'
 import { Link } from 'react-router-dom';
-import Otp from '../Otp/Otp'
+import Otp from '../../pages/Otp/Otp'
 function Login() {
     const [value, setValue] = useState('')
     const [isDisabled, setIsDisabled] = useState(true);

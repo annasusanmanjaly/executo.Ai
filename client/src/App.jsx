@@ -1,6 +1,6 @@
 import { Routes, Route } from 'react-router-dom';
-import Landing from '../src/pages/Landing';
-import Login from '../src/pages/Login';
+import Landing from '../src/pages/Landing/Landing';
+import Login from '../src/pages/Login/Login';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
