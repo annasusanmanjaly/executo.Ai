@@ -8,6 +8,8 @@ import facebook from '../../assets/fb.png'
 import twitter from '../../assets/twitter.png'
 import { Link } from 'react-router-dom';
 import Otp from '../../pages/Otp/Otp'
+
+
 function Login() {
     const [value, setValue] = useState('')
     const [isDisabled, setIsDisabled] = useState(true);

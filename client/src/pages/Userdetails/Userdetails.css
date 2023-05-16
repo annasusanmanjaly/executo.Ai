@@ -1,0 +1,80 @@
+.bio{
+    box-sizing: border-box;
+  position: relative;
+  width: 163px;
+  height: 163px;
+  left: auto;
+  right: auto;
+  top: 108px;
+}
+.upload{
+    position: absolute;
+  width: 186px;
+  height: 21px;
+  left: 102px;
+  top: 311px;
+  font-size: 14px;
+  line-height: 21px;
+  text-align: center;
+  font-family: Inter, sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    color: black;
+    
+}
+.save{
+    position: absolute;
+left: 7.44%;
+right: 6.67%;
+top: 78.2%;
+bottom: 15.64%;
+color: white;
+background: #43C59D;
+border-radius: 10px;
+font-family: Inter, sans-serif;
+font-style: normal;
+font-weight: 500;
+font-size: 20px;
+line-height: 24px;
+Width: 335px;
+height: 52px;
+}
+.name{
+    position: absolute;
+    width: 332px;
+    height: 52px;
+    left: 29px;
+    top: 459px;
+
+    font-family:Inter, sans-serif; ;
+    font-style: normal;
+    font-weight: 400;
+    color:black;
+    background: #F3F3F3;
+    box-shadow: inset 0px 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    font-size: 12px;
+    line-height: 18px;
+    text-indent: 16px;
+    letter-spacing: 0.0015em;
+    
+}
+.mail{
+    position: absolute;
+width: 332px;
+height: 52px;
+left: 29px;
+top: 537px;
+
+background: #F3F3F3;
+box-shadow: inset 0px 2px 4px rgba(0, 0, 0, 0.1);
+border-radius: 10px;
+font-family: Inter, sans-serif;
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+line-height: 18px;
+text-indent: 16px;
+letter-spacing: 0.0015em;
+
+}
