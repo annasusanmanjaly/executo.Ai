@@ -1,6 +1,7 @@
 import React,{useState} from 'react'
 import photo from '../../assets/photo.png'
 import './Userdetails.css'
+import BottomNav from '../../components/BottomNav/BottomNav'
 // import { Link } from 'react-router-dom';
 
 
@@ -31,13 +32,13 @@ return(
 <input type="text"
  className='name'
  onChange={handleInputChange}
- value='Enter your name'
+ placeholder='Enter your name'
 
  />     
 <input type="text"
 className='mail'
  onChange={handleInputChange}
-  value='Enter your mail id'
+  placeholder='Enter your mail id'
   /> 
 <button
             className={'save'}
@@ -45,8 +46,11 @@ className='mail'
             onClick={handleSubmit}
           >
             Save
-          </button>        
+          </button>  
+          
+
 </div>
+<BottomNav/>
 </div>
 )
 }
