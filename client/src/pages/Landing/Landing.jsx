@@ -1,5 +1,5 @@
 import React from 'react'
-import logo from '../assets/logo.png'
+import logo from '../../assets/logo.png'
 function Landing() {
   return (
     <div className="flex justify-center items-center h-screen">
