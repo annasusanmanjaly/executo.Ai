@@ -50,7 +50,6 @@ className='mail'
           
 
 </div>
-<BottomNav/>
 </div>
 )
 }

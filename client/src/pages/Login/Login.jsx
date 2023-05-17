@@ -62,7 +62,7 @@ function Login() {
          </div>
         </div>
       </div>
-      : <Otp/>}
+      : <Otp handleSubmit={handleSubmit}/>}
     </div>
   )
 }

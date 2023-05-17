@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import bg from '../../assets/bg.png'
 import logo from '../../assets/logo.png'
 import Otpbox from '../../components/otp/Otpbox'
-import IoArrowBackCircleSharp from 'react-icons/io'
-function Otp() {
+import { IoMdArrowRoundBack } from 'react-icons/io';
+function Otp({handleSubmit}) {
   const [otp, setOtp] = useState("");
   const isOtpFilled = otp.length === 4;
 
@@ -19,8 +19,11 @@ function Otp() {
               <img src={bg} alt="background" />
               <img src={logo} alt="logo" className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" />
             </div>
-            {/* <IoArrowBackCircleSharp/> */}
+            
           <div className='relative h-screen/2 w-screen bg-white flex flex-col justify-center items-center'>
+           <div className='!mr-[20rem] !mt-3'> 
+          <IoMdArrowRoundBack size={40} onClick={handleSubmit}/>
+          </div>
           <h1 className='font-bold text-2xl text-teal-500 m-5'>Enter OTP</h1>
             <p>We have send an OTP to your mobile number</p>
             <div>
