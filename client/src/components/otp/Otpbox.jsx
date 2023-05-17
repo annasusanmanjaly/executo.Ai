@@ -1,10 +1,8 @@
 import OtpInput from "react-otp-input";
 import React, { useState } from "react";
 
-function OtpI() {
-  const [code, setCode] = useState("");
-
-  const handleChange = (code) => setCode(code);
+function Otpbox({ otp, handleOtpChange }) {
+  const isOtpFilled = otp.length === 4
 
   const handleSuccess = () => {
     console.log("Success!");
@@ -26,8 +24,8 @@ function OtpI() {
     <div className="rounded-md p-4 text-lg text-center mx-auto">
       <div className="flex justify-center items-center space-x-4">
         <OtpInput
-          value={code}
-          onChange={handleChange}
+          value={otp}
+          onChange={(value) => handleOtpChange(value)}
           numInputs={4}
           separator={<span style={{ width: "8px" }}></span>}
           isInputNum={true}
@@ -64,4 +62,4 @@ function OtpI() {
   );
 }
 
-export default OtpI;
+export default Otpbox;
