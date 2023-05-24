@@ -1,7 +1,7 @@
 import React,{useState} from 'react'
 import photo from '../../assets/photo.png'
 import './Userdetails.css'
-import BottomNav from '../../components/BottomNav/BottomNav'
+
 // import { Link } from 'react-router-dom';
 
 
@@ -50,7 +50,7 @@ className='mail'
           
 
 </div>
-<BottomNav/>
+
 </div>
 )
 }
