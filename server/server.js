@@ -1,83 +1,143 @@
+// server.js
 const express = require('express');
 const bodyParser = require('body-parser');
-const mysql = require('mysql');
-const otpGenerator = require('otp-generator');
-
+const cors = require('cors');
 const app = express();
+require('dotenv').config();
+
+const authController = require('./app/controllers/authController');
+
 app.use(bodyParser.json());
+app.use(cors());
 
-// Database configuration
-const connection = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  password: 'password',
-  database: 'mydatabase'
+app.post('/login', authController.login);
+app.post('/verify', authController.verify);
+
+const port = process.env.PORT || 3000;
+app.listen(port, () => {
+  console.log(`Server started on port ${port}`);
 });
 
-connection.connect((err) => {
-  if (err) {
-    console.error('Error connecting to database:', err);
-    return;
-  }
-  console.log('Connected to database');
-});
+//server full code
+// const express = require('express');
+// const bodyParser = require('body-parser');
+// const mysql = require('mysql2');
+// const app = express();
+// const twilio = require('twilio');
+// const cors = require('cors');
+// require('dotenv').config();
 
-// Send OTP to phone number
-app.post('/login', (req, res) => {
-  const phoneNumber = req.body.phone_number;
+// const accountSid = process.env.TWILIO_ACCOUNT_SID;
+// const authToken = process.env.TWILIO_AUTH_TOKEN;
+// const twilioPhoneNumber = process.env.TWILIO_PHONE_NUMBER;
 
-  const otp = otpGenerator.generate(6, { digits: true, alphabets: false, upperCase: false, specialChars: false });
-  const query = `INSERT INTO otps (phone_number, otp) VALUES ('${phoneNumber}', '${otp}')`;
+// const client = twilio(accountSid, authToken);
+// app.use(bodyParser.json());
+// app.use(cors());
 
-  connection.query(query, (error, results, fields) => {
-    if (error) {
-      console.error('Error sending OTP:', error);
-      res.status(500).send('Internal server error');
-      return;
-    }
+// // Database configuration
+// const connection = mysql.createConnection({
+//   host: process.env.DB_HOST,
+//   user: process.env.DB_USER,
+//   password: process.env.DB_PASSWORD,
+//   database: process.env.DB_DATABASE
+// });
 
-    console.log(`OTP sent to ${phoneNumber}: ${otp}`);
-    res.send('OTP sent');
-  });
-});
 
-// Verify OTP
-app.post('/verify', (req, res) => {
-  const phoneNumber = req.body.phone_number;
-  const otp = req.body.otp;
+// connection.connect((err) => {
+//   if (err) {
+//     console.error('Error connecting to database:', err);
+//     return;
+//   }
+//   console.log('Connected to database');
+// });
 
-  const query = `SELECT * FROM otps WHERE phone_number = '${phoneNumber}' AND otp = '${otp}'`;
+// // Send OTP to phone number
+// app.post('/login', (req, res) => {
+//   const phoneNumber = req.body.phone_number;
+//   const otp = generateOTP();
 
-  connection.query(query, (error, results, fields) => {
-    if (error) {
-      console.error('Error verifying OTP:', error);
-      res.status(500).send('Internal server error');
-      return;
-    }
+//   // Insert phone number into 'users' table
+//   const userQuery = `INSERT INTO users (phone_number) VALUES ('${phoneNumber}')`;
+//   connection.query(userQuery, (userError, userResults) => {
+//     if (userError) {
+//       console.error('Error inserting phone number:', userError);
+//       res.status(500).send('Internal server error');
+//       return;
+//     }
 
-    if (results.length > 0) {
-      console.log(`OTP verified for ${phoneNumber}`);
-      res.send('OTP verified');
-    } else {
-      console.log(`Invalid OTP for ${phoneNumber}: ${otp}`);
-      res.status(400).send('Invalid OTP');
-    }
-  });
-});
+//     const userId = userResults.insertId;
 
-// Start server
-app.listen(3000, () => {
-  console.log('Server started on port 3000');
-});
+//     // Insert OTP into 'otps' table
+//     const otpQuery = `INSERT INTO otps (user_id, otp) VALUES (${userId}, '${otp}')`;
+//     connection.query(otpQuery, (otpError, otpResults) => {
+//       if (otpError) {
+//         console.error('Error inserting OTP:', otpError);
+//         res.status(500).send('Internal server error');
+//         return;
+//       }
 
-d
-//database design 
-// CREATE TABLE users (
-//     id INT NOT NULL AUTO_INCREMENT,
-//     phone_number VARCHAR(20) NOT NULL,
-//     otp VARCHAR(10) NOT NULL,
-//     otp_created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-//     PRIMARY KEY (id),
-//     UNIQUE KEY (phone_number)
-//   );
-  
+//       sendOTPviaSMS(phoneNumber, otp);
+//       console.log(`OTP sent to ${phoneNumber}`);
+//       res.send('OTP sent');
+//     });
+//   });
+// });
+
+// // Verify OTP
+// app.post('/verify', (req, res) => {
+//   const phoneNumber = req.body.phoneNumber;
+//   const otp = req.body.otp
+//   console.log(`The otp is ${otp} and ${phoneNumber}`)
+
+//   const query = `
+//     SELECT * FROM otps
+//     WHERE otp = '${otp}' AND user_id IN (
+//       SELECT id FROM users WHERE phone_number = '${phoneNumber}'
+//     );`
+
+//   connection.query(query, (error, results, fields) => {
+//     if (error) {
+//       console.error('Error verifying OTP:', error);
+//       res.status(500).send('Internal server error');
+//       return;
+//     }
+
+//     if (results.length > 0) {
+//       console.log(`OTP verified for ${phoneNumber}`);
+//       res.send('OTP verified');
+//     } else {
+//       console.log(`Invalid OTP for ${phoneNumber}: ${otp}`);
+//       res.status(400).send('Invalid OTP');
+//     }
+//   });
+// });
+
+// // Helper function to generate OTP
+// function generateOTP() {
+//   const min = 1000; // Minimum OTP value (inclusive)
+//   const max = 9999; // Maximum OTP value (inclusive)
+//   return Math.floor(Math.random() * (max - min + 1)) + min;
+// }
+
+
+// // Helper function to send OTP via Twilio SMS
+// function sendOTPviaSMS(phoneNumber, otp) {
+//   client.messages
+//     .create({
+//       body: `Your OTP is: ${otp}`,
+//       from: twilioPhoneNumber,
+//       to: phoneNumber
+//     })
+//     .then(message => {
+//       console.log(`OTP sent to ${phoneNumber}: ${otp}`);
+//     })
+//     .catch(error => {
+//       console.error('Error sending OTP:', error);
+//     });
+// }
+
+// // Start server
+// app.listen(3000, () => {
+//   console.log('Server started on port 3000');
+// });
