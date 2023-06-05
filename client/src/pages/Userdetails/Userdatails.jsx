@@ -50,10 +50,7 @@ className='mail'
           
 
 </div>
-<<<<<<< HEAD
 
-=======
->>>>>>> 9716ded0fc2de2ca6b330622e4c751044411c515
 </div>
 )
 }
