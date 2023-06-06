@@ -4,12 +4,9 @@ import Topnav from '../../components/Topnav/Topnav';
 
 function Addtask() {
   return (
-<<<<<<< Updated upstream
+
     <div className='bg-[#F3F3F3] h-screen w-screen flex pr-3 flex-col'>
-=======
-    <div className='bg-[#F3F3F3] h-screen w-screen flex items-center pr-3 flex-col'>
       
->>>>>>> Stashed changes
       <Topnav/>
       <div className="pt-20 pl-4">
         <h2 className="font-bold text-gray-600">Add your goal</h2>
