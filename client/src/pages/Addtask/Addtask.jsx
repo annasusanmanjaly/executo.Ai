@@ -6,7 +6,6 @@ function Addtask() {
   return (
 
     <div className='bg-[#F3F3F3] h-screen w-screen flex pr-3 flex-col'>
-      
       <Topnav/>
       <div className="pt-20 pl-4">
         <h2 className="font-bold text-gray-600">Add your goal</h2>
