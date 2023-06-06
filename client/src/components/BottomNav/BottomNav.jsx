@@ -27,7 +27,6 @@ export default function BottomNav() {
       onClick: () => handleIconClick(newValue),
     });
   };
-
   return (
     <BottomNavigation
       className="bg-white-500 h-16"
@@ -57,14 +56,14 @@ export default function BottomNav() {
           icon={renderIcon(<FactCheckTwoToneIcon />, 'check')}
         />
       </Link>
-      <Link to="">
+      <Link to="/chat">
         <BottomNavigationAction
           label="Message"
           value="Message"
           icon={renderIcon(<MessageIcon />, 'Message')}
         />
       </Link>
-      <Link to="">
+      <Link to="/profile">
         <BottomNavigationAction
           label="Account"
           value="Account"
