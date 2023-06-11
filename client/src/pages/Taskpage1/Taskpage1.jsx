@@ -4,7 +4,7 @@ import pic from '../../assets/pic.png';
 import Topnav from '../../components/Topnav/Topnav';
 import BottomNav from '../../components/BottomNav/BottomNav';
 import ProgressBar from "@ramonak/react-progress-bar";
-
+import './Taskpage1.css'
 
 
 function Taskpage1() {
@@ -18,7 +18,7 @@ function Taskpage1() {
                 </div>
                 <img src={pic} alt='pic' className='w-[150px] h-[150px] ml-[120px] mt-[1.5rem]' />
                 <ProgressBar
-                    completed={60}
+                    completed={12}
                     className="mt-4 w-[335px] h-[52px] ml-5"
                     height="22px"
 
@@ -29,40 +29,40 @@ function Taskpage1() {
 
             </div>
             <div className='mt-[70px]'>
-                <h3 className='text-[#1F695D] font-semibold ml-[23px] mt-[2.5rem]'> Day25 :Asynchronous JavaScript</h3>
+                <h3 className='text-[#1F695D] font-bold text-lg ml-[35px] mt-[2.5rem]'> Day25 :Asynchronous JavaScript</h3>
                 <br/>
-                <ul className="list-disc pl-8 space-y-2">
+                <ul className="list-disc pl-8 space-y-2 ml-[20px]">
                     <li>
 
-                        <label for="item1" className='text-[#5B5858]'>Understand asynchronous JS</label>
+                        <label htmlFor="item1" className='text-[#5B5858]'>Understand asynchronous JS</label>
                         
-                        <input type="checkbox" id="item1" className=" ml-[4rem] w-[24px] h-[24px]  border-[#43C59D]  " />
-                        
-                    </li>
-                    
-                    <li>
-
-                        <label for="item2" className='text-[#5B5858]'>Event loop</label>
-                        <input type="checkbox" id="item2"className=" ml-[12rem]  w-[24px] h-[24px]" />
+                        <input type="checkbox" id="item1" className=" ml-[4rem] w-[24px] h-[24px]   checkbox-green " />
                         
                     </li>
                     
                     <li>
 
-                        <label for="item3" className='text-[#5B5858]'>Callbacks,promises,async/await</label>
-                        <input type="checkbox" id="item3"className='ml-[3rem]  w-[24px] h-[24px] ' />
+                        <label htmlFor="item2" className='text-[#5B5858]'>Event loop</label>
+                        <input type="checkbox" id="item2"className=" ml-[12rem]  w-[24px] h-[24px] checkbox-green " />
+                        
+                    </li>
+                    
+                    <li>
+
+                        <label htmlFor="item3" className='text-[#5B5858]'>Callbacks,promises,async/await</label>
+                        <input type="checkbox" id="item3"className='ml-[3rem]  w-[24px] h-[24px] checkbox-green  ' />
                         
                     </li>
                     <li>
 
-                        <label for="item4" className='text-[#5B5858]'>Fetching Data,handling input</label>
-                        <input type="checkbox" id="item4"className=' ml-[4rem]  w-[24px] h-[24px] '/ >
+                        <label htmlFor="item4" className='text-[#5B5858]'>Fetching Data,handling input</label>
+                        <input type="checkbox" id="item4"className=' ml-[4rem]  w-[24px] h-[24px] checkbox-green  '/ >
                         
                     </li>
 
                 </ul>
                 <button
-            className='absolute left-[7.44%] right-[6.67%] top-[78.2%] bottom-[15.64%] text-white bg-[#43C59D] rounded-2xl font-medium text-lg leading-6 w-[335px] h-[52px] mt-[20px]'
+            className='absolute left-[7.44%] right-[6.67%] top-[78.2%] bottom-[15.64%] text-white bg-[#43C59D] rounded-2xl font-medium text-lg leading-6 w-[335px] h-[52px] mt-[27px]'
             
           >
             Submit
@@ -75,4 +75,4 @@ function Taskpage1() {
         </div>
     )
 }
-export default Taskpage1
+export default Taskpage1;
