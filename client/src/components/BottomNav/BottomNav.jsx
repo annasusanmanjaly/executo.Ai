@@ -63,7 +63,7 @@ export default function BottomNav() {
           icon={renderIcon(<MessageIcon />, 'Message')}
         />
       </Link>
-      <Link to="">
+      <Link to="/profile">
         <BottomNavigationAction
           label="Account"
           value="Account"

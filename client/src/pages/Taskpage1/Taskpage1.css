@@ -1,0 +1,32 @@
+.checkbox-green {
+    --tw-border-opacity: 1;
+    --tw-bg-opacity: 0;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    outline: 2px solid transparent;
+    outline-offset: 2px;
+    border-radius: 4px;
+    width: 24px;
+    height: 24px;
+    border: 2px solid #43C59D;
+    background-color: transparent;
+    position: relative;
+  }
+  
+  .checkbox-green:checked {
+    --tw-bg-opacity: 1;
+    background-color: #43C59D;
+  }
+  
+  .checkbox-green:checked::after {
+    content: "\2713"; /* Checkmark symbol */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 16px;
+    color: white;
+    pointer-events: none;
+  }
+  
