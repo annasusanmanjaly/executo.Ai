@@ -11,12 +11,12 @@ import streak from '../../assets/streak.png';
 function Profile() {
   return (
     <>
-      <div className="flex-grow flex flex-col mb-[1rem]">
+      <div className="flex-grow flex flex-col mb-[2rem]">
         <img src={profilebg} alt="profilebg" className="w-full" />
         <img src={profile} alt="profile" className="mt-[-6rem] mx-auto" />
         <h2 className='text-2xl ml-[7rem]'>Dheeraj Dileep</h2>
       </div>
-      <div className='bg-[#F3F3F3] flex flex-row shadow-inner'>
+      <div className='bg-[#F3F3F3] flex flex-row shadow-inner mb-[0.2rem]'>
         <img src={i} alt='i'className='ml-[2rem] mt-[0.5rem] mb-[0.5rem] mr-[1rem] pt-[1rem] pb-[1rem]' />
         <div className='flex flex-col'>
         <h2 className='mt-[1rem]'>About</h2>
@@ -24,15 +24,15 @@ function Profile() {
         </div>
         <img src={edit} alt='edit' className='ml-[11rem] mt-[1.5rem] mb-[1.5rem]'/>
       </div>
-      <div className='bg-[#F3F3F3] flex flex-row shadow-inner'>
-        <img src={phone} alt='phone'className='ml-[2rem] mt-[0.5rem] mb-[0.5rem] mr-[1rem] pt-[1rem] pb-[1rem]' />
+      <div className='bg-[#F3F3F3] flex flex-row shadow-inner mb-[1.5rem]'>
+        <img src={phone} alt='phone'className='ml-[2rem] mt-[0.5rem] mb-[0.5rem] mr-[1rem] pt-[1rem] pb-[1.3rem]' />
         <div className='flex flex-col'>
         <h2 className='mt-[1rem]'>Phone</h2>
         <h2 className='font-semibold'>0999999999</h2>
         </div>
         <img src={edit} alt='edit' className='ml-[11rem] mt-[1.5rem] mb-[1.5rem]'/>
       </div>
-      <div className='bg-[#24806B] rounded-3xl'>
+      <div className='bg-[#24806B] rounded-3xl mb-[2rem]'>
         <h2 className='text-white font-semibold ml-[2rem] pt-[1rem]'>Achievement Wall</h2>
         <img src={sticker2} alt='sticker2' className='ml-[2rem] pt-[1rem]'/>
         <img src={sticker1} alt='sticker1' className='ml-[7rem] pb-[1rem]'/>
