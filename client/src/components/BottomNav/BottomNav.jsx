@@ -1,15 +1,29 @@
-import * as React from 'react';
-import BottomNavigation from '@mui/material/BottomNavigation';
-import BottomNavigationAction from '@mui/material/BottomNavigationAction';
+import React, { useState, useEffect } from 'react';
+import { BottomNavigation, BottomNavigationAction } from '@mui/material';
 import HomeIcon from '@mui/icons-material/Home';
 import FactCheckTwoToneIcon from '@mui/icons-material/FactCheckTwoTone';
 import MessageIcon from '@mui/icons-material/Message';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import './BottomNav.css';
 
 export default function BottomNav() {
-  const [value, setValue] = React.useState('home');
+  const location = useLocation();
+  const [value, setValue] = useState('home');
+
+  useEffect(() => {
+    // Update the active value based on the current location
+    const path = location.pathname;
+    if (path === '/home') {
+      setValue('home');
+    } else if (path === '/check') {
+      setValue('check');
+    } else if (path === '/chatroom') {
+      setValue('Message');
+    } else if (path === '/profile') {
+      setValue('Account');
+    }
+  }, [location]);
 
   const handleIconClick = (newValue) => {
     setValue(newValue);
@@ -27,6 +41,7 @@ export default function BottomNav() {
       onClick: () => handleIconClick(newValue),
     });
   };
+
   return (
     <BottomNavigation
       className="bg-white-500 h-16"
@@ -40,7 +55,6 @@ export default function BottomNav() {
         gap: '20px'
       }}
       value={value}
-      onChange={(_, newValue) => setValue(newValue)}
     >
       <Link to="/home">
         <BottomNavigationAction
@@ -49,14 +63,14 @@ export default function BottomNav() {
           icon={renderIcon(<HomeIcon />, 'home')}
         />
       </Link>
-      <Link to="">
+      <Link to="/check">
         <BottomNavigationAction
-          label="check"
+          label="Check"
           value="check"
           icon={renderIcon(<FactCheckTwoToneIcon />, 'check')}
         />
       </Link>
-      <Link to="/chat">
+      <Link to="/chatroom">
         <BottomNavigationAction
           label="Message"
           value="Message"

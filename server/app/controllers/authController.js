@@ -8,6 +8,7 @@ async function login(req, res) {
     let userId;
 
     const user = await userModel.getUserByPhoneNumber(phoneNumber);
+    console.log(user)
     if (!user) {
       userId = await userModel.insertUser(phoneNumber);
     } else {
