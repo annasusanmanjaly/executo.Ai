@@ -8,11 +8,13 @@ import facebook from '../../assets/fb.png';
 import twitter from '../../assets/twitter.png';
 import { Link } from 'react-router-dom';
 import Otp from '../../pages/Otp/Otp';
+import { AuthContext } from '../../context/Authcontext';
 
 function Login() {
   const [phoneNumber, setPhoneNumber] = useState('');
   const [isDisabled, setIsDisabled] = useState(true);
   const [isloggedin, setIsloggedin] = useState(true);
+  const { login } = useContext(AuthContext);
   const handleLoginchange =()=>{
     setIsloggedin(!isloggedin)
   }
@@ -27,13 +29,17 @@ function Login() {
 
   const handleSubmit = () => {
     setIsloggedin(!isloggedin);
+    const userData = {
+      phoneNumber: phoneNumber,
+    }
+    login(userData)
     // Send a POST request to your backend endpoint '/login' with the phone number
     fetch('http://localhost:3000/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ phone_number: phoneNumber }),
+      body: JSON.stringify(userData),
     })
       .then((response) => {
         if (response.ok) {

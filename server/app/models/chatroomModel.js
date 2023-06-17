@@ -2,16 +2,16 @@
 
 const connection = require('../../config/dbConfig')
 
-const getChatroomById = async (id) => {
+const getChatroomByName = async (name) => {
   try {
-    const query = 'SELECT * FROM chatroom WHERE id = ?';
-    const [result] =  connection.query(query, [id]);
-    return result[0];
+    const query = 'SELECT * FROM chatroom WHERE name = ?';
+    const [rows] = await connection.query(query, [name]);
+    return rows[0]; // Assuming the name is unique, return the first row
   } catch (error) {
-    throw new Error('Failed to get chatroom by ID');
+    throw new Error('Failed to fetch chatroom');
   }
 };
 
 module.exports = {
-  getChatroomById,
+  getChatroomByName,
 };

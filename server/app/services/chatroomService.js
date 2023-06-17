@@ -3,13 +3,13 @@
 const chatroomModel = require('../models/chatroomModel');
 const chatroomController = require('../controllers/chatroomController');
 
-const createChatroom = async (name) => {
+const createChatroom = async (name,userData) => {
   try {
-    const chatroomId = await chatroomController.createChatroom(name);
-    const chatroom = await chatroomModel.getChatroomById(chatroomId);
-    return chatroom;
+    const chatroom = await chatroomModel.getChatroomByName(name)
+    chatroom ?  chatroomController.joinChatRoom(name,userData) :  chatroomController.createChatRoom(name,userData)
+
   } catch (error) {
-    throw new Error('Failed to create chatroom');
+    throw new Error('Failed to create chatroom')
   }
 };
 
