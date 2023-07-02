@@ -8,7 +8,7 @@ const openai = new OpenAIApi(configuration);
 
 async function callOpenAI(goal,day) {
   try {
-    const prompt = `i'm tryin to do ${goal} in ${day} days  give me the whole plan for ${day} days with each day containing 3 tasks , it should be in a format which is easier to take all day and tasks and store it in mysql table format const learningPlan = [
+    const prompt = `i'm tryin to do ${goal} in ${day} days  give me the whole plan for ${day} days with each day containing 3 tasks , it should be in a format  [
       [
         'Learn the basics of JavaScript',
         'Practice writing basic JavaScript code',

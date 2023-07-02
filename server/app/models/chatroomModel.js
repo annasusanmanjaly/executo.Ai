@@ -1,13 +1,12 @@
-// chatroomModel.js
-
-const connection = require('../../config/dbConfig')
+const connection = require('../../config/dbConfig');
 
 const getChatroomByName = async (name) => {
   try {
     const query = 'SELECT * FROM chatroom WHERE name = ?';
-    const [rows] = await connection.query(query, [name]);
-    return rows[0]; // Assuming the name is unique, return the first row
+    const [rows] = await connection.promise().query(query, [name]);
+    return rows.length ? rows[0] : null;
   } catch (error) {
+    console.error('Failed to fetch chatroom:', error);
     throw new Error('Failed to fetch chatroom');
   }
 };

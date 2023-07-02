@@ -3,7 +3,7 @@ const otpService = require('../services/otpService');
 
 async function login(req, res) {
   try {
-    const phoneNumber = req.body.phone_number;
+    const phoneNumber = req.body.phoneNumber;
     const otp = otpService.generateOTP();
     let userId;
 
