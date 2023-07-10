@@ -1,5 +1,5 @@
 
-import React from 'react'
+import React,{useState} from 'react'
 import pic from '../../assets/pic.png';
 import Topnav from '../../components/Topnav/Topnav';
 import BottomNav from '../../components/BottomNav/BottomNav';
@@ -8,6 +8,20 @@ import './Taskpage1.css'
 
 
 function Taskpage1() {
+
+    const [total, setTotal] = useState(0);
+
+  const handleCheckboxChange = (event) => {
+    const isChecked = event.target.checked;
+    const checkboxValue = parseInt(event.target.value);
+
+    if (isChecked) {
+      setTotal((prevTotal) => prevTotal + checkboxValue);
+    } else {
+      setTotal((prevTotal) => prevTotal - checkboxValue);
+    }
+  };
+
     return (
         <div className='bg-[#F3F3F3]'>
             <Topnav />
@@ -18,7 +32,7 @@ function Taskpage1() {
                 </div>
                 <img src={pic} alt='pic' className='w-[150px] h-[150px] ml-[120px] mt-[1.5rem]' />
                 <ProgressBar
-                    completed={12}
+                    completed={total}
                     className="mt-4 w-[335px] h-[52px] ml-5"
                     height="22px"
 
@@ -36,27 +50,27 @@ function Taskpage1() {
 
                         <label htmlFor="item1" className='text-[#5B5858]'>Understand asynchronous JS</label>
                         
-                        <input type="checkbox" id="item1" className=" ml-[4rem] w-[24px] h-[24px]   checkbox-green " />
+                        <input type="checkbox" id="item1" className=" ml-[4rem] w-[24px] h-[24px]   checkbox-green "  onChange={handleCheckboxChange}  value='25'/>
                         
                     </li>
                     
                     <li>
 
                         <label htmlFor="item2" className='text-[#5B5858]'>Event loop</label>
-                        <input type="checkbox" id="item2"className=" ml-[12rem]  w-[24px] h-[24px] checkbox-green " />
+                        <input type="checkbox" id="item2"className=" ml-[12rem]  w-[24px] h-[24px] checkbox-green "  onChange={handleCheckboxChange}  value='25'/>
                         
                     </li>
                     
                     <li>
 
                         <label htmlFor="item3" className='text-[#5B5858]'>Callbacks,promises,async/await</label>
-                        <input type="checkbox" id="item3"className='ml-[3rem]  w-[24px] h-[24px] checkbox-green  ' />
+                        <input type="checkbox" id="item3"className='ml-[3rem]  w-[24px] h-[24px] checkbox-green  '  onChange={handleCheckboxChange} value='25'/>
                         
                     </li>
                     <li>
 
                         <label htmlFor="item4" className='text-[#5B5858]'>Fetching Data,handling input</label>
-                        <input type="checkbox" id="item4"className=' ml-[4rem]  w-[24px] h-[24px] checkbox-green  '/ >
+                        <input type="checkbox" id="item4"className=' ml-[4rem]  w-[24px] h-[24px] checkbox-green  '  onChange={handleCheckboxChange}  value='25'/>
                         
                     </li>
 
