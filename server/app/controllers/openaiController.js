@@ -55,21 +55,37 @@ async function generateOpenAIResponse(req, res) {
 
     // Log the OpenAI response
     console.log('OpenAI Response:', response);
-
+    const json = '{"Day1":["Task1: Research the materials and tools needed to make a bulb","Task2: Gather the materials and tools needed to make a bulb","Task3: Read up on the steps to make a bulb"],"Day2":["Task1: Practice the steps to make a bulb","Task2: Make a prototype of the bulb","Task3: Test the prototype of the bulb"],"Day3":["Task1: Make adjustments to the prototype of the bulb","Task2: Make a final version of the bulb","Task3: Test the final version of the bulb"],"Day4":["Task1: Make any necessary adjustments to the final version of the bulb","Task2: Package the bulb for sale","Task3: Market the bulb"],"Day5":["Task1: Prepare documentation for the bulb","Task2: Create user manuals","Task3: Launch and promote the bulb"]}'
+    const json2 = '{"Day1": ["Task1: Research the materials and tools needed to make a bulb", "Task2: Gather the materials and tools needed to make a bulb", "Task3: Read up on the steps to make a bulb"], "Day2": ["Task1: Practice the steps to make a bulb", "Task2: Make a prototype of the bulb", "Task3: Test the prototype of the bulb"], "Day3": ["Task1: Make adjustments to the prototype of the bulb", "Task2: Make a final version of the bulb", "Task3: Test the final version of the bulb"], "Day4": ["Task1: Make any necessary adjustments to the final version of the bulb", "Task2: Package the bulb", "Task3: Test the packaged bulb"]}'
+    const data =JSON.parse(response)
+    console.log(data)
     // Store the learning plan in the database
     const goalId = await createGoalInDatabase(goal, day);
+    // console.log(response[0])
+    for (const day in data) {
+      // Access the tasks for the current day
+      const tasks = data[day];
+    
+      // console.log(`Day: ${day}`);
+      // Iterate over each task in the tasks array for the current day
+      tasks.forEach((task, index) => {
 
-    for (let i = 0; i < response.length; i++) {
-      const tasks = response[i][0]; // Get the tasks for the current day
-      console.log('Day:', i + 1);
-      console.log('Tasks:', tasks.join(', '));
-
-      const taskDay = i + 1;
-      for (let j = 0; j < tasks.length; j++) {
-        const task = tasks[j];
-        await saveTaskInDatabase(task, goalId, taskDay);
-      }
+        console.log(`Task ${index + 1}: ${task}`);
+      });
     }
+    // for (let i = 0; i < data.length; i++) {
+      
+      // const tasks = data; // Get the tasks for the current day
+      // console.log(tasks)
+      // console.log('Day:', i + 1);
+      // console.log('Tasks:', tasks.join(', '));
+
+      // const taskDay = i + 1;
+      // for (let j = 0; j < tasks.length; j++) {
+      //   const task = tasks[j];
+      //   await saveTaskInDatabase(task, goalId, taskDay);
+      // }
+    // }
 
     // Send the success response to the client
     res.send('Learning plan stored successfully');

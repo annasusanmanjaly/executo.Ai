@@ -5,22 +5,11 @@ const configuration = new Configuration({
     apiKey: process.env.OPENAI_API_KEY,
 });
 const openai = new OpenAIApi(configuration);
-
 async function callOpenAI(goal,day) {
   try {
-    const prompt = `i'm tryin to do ${goal} in ${day} days  give me the whole plan for ${day} days with each day containing 3 tasks , it should be in a format  [
-      [
-        'Learn the basics of JavaScript',
-        'Practice writing basic JavaScript code',
-        'Read an article about JavaScript fundamentals'
-      ],
-      [
-        'Learn about JavaScript functions',
-        'Practice writing functions in JavaScript',
-        'Read an article about different types of functions in JavaScript'
-      ],
-      // ... add tasks for other days , and the whole days should be in a single array
-    ]; `
+    const prompt = `i'm tryin to do ${goal} in ${day} days  give me the whole plan for ${day} days with each day containing 3 tasks , it should be in a json format. Give me the stringified json output without any explanation
+    I'm repeating again, I don't need any explanation, only the json stringified code`
+
     const response = await openai.createCompletion({
       model: "text-davinci-003",
       prompt: prompt,
