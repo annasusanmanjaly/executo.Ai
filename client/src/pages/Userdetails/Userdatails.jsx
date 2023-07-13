@@ -1,4 +1,4 @@
-import React, { useState,useContext } from 'react';
+import React, { useState,useContext,useEffect } from 'react';
 import photo from '../../assets/photo.png';
 import './Userdetails.css';
 import axios from 'axios';
@@ -8,7 +8,14 @@ function Userdetails() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const { user } = useContext(AuthContext);
+  const [items, setItems] = useState([]);
 
+  useEffect(() => {
+      const userData = JSON.parse(localStorage.getItem('userData'))
+      if (userData) {
+      setItems(userData);
+      }
+    }, []);
   const handleNameChange = (event) => {
     setName(event.target.value);
   };
@@ -19,7 +26,8 @@ function Userdetails() {
 
   const handleSubmit = () => {
     // Create an object with the email and name values
-    const phoneNumber = user.phoneNumber
+    const phoneNumber = items.phoneNumber
+    console.log("phoneNumber",phoneNumber)
     const userData = { name, email ,phoneNumber };
 
     // Make a POST request to the backend API
@@ -60,5 +68,5 @@ function Userdetails() {
     </div>
   );
 }
-
-export default Userdetails;
+// import { Link } from 'react-router-dom'
+export default Userdetails

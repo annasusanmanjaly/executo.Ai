@@ -5,7 +5,7 @@ import Otpbox from '../../components/otp/Otpbox'
 import { IoMdArrowRoundBack } from 'react-icons/io';
 import {useNavigate} from 'react-router-dom'
 
-function Otp({ handleSubmit,phoneNumber }) {
+function Otp({ handleLoginchange,phoneNumber }) {
   const [otp, setOtp] = useState("");
   const navigate = useNavigate()
 
@@ -47,7 +47,7 @@ function Otp({ handleSubmit,phoneNumber }) {
 
         <div className='relative h-screen/2 w-screen bg-white flex flex-col justify-center items-center'>
           <div className='!mr-[20rem] !mt-3'>
-            <IoMdArrowRoundBack size={40} onClick={handleSubmit} />
+            <IoMdArrowRoundBack size={40} onClick={handleLoginchange} />
           </div>
           <div className='flex flex-col items-center justify-center gap-y-3'>
             <h1 className='font-bold text-2xl text-teal-500 '>Enter OTP</h1>

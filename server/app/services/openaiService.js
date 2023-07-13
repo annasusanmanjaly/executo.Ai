@@ -8,7 +8,7 @@ const openai = new OpenAIApi(configuration);
 async function callOpenAI(goal,day) {
   try {
     const prompt = `i'm tryin to do ${goal} in ${day} days  give me the whole plan for ${day} days with each day containing 3 tasks , it should be in a json format. Give me the stringified json output without any explanation
-    I'm repeating again, I don't need any explanation, only the json stringified code`
+    I'm repeating again, I don't need any explanation,it should be in the stringifed json format`
 
     const response = await openai.createCompletion({
       model: "text-davinci-003",
@@ -18,7 +18,7 @@ async function callOpenAI(goal,day) {
       // stream: true
     });
 
-    const output = response.data.choices[0].text.trim();
+    const output = response.data.choices[0].text.trim()
     return output;
   } catch (error) {
     console.error('Error in calling OpenAI API:', error.message);

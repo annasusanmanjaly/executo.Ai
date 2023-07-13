@@ -5,6 +5,7 @@ async function login(req, res) {
   try {
     const phoneNumber = req.body.phoneNumber;
     const otp = otpService.generateOTP();
+    console.log(otp)
     let userId;
 
     const user = await userModel.getUserByPhoneNumber(phoneNumber);
@@ -16,7 +17,7 @@ async function login(req, res) {
     }
 
     await otpService.insertOTP(userId, otp);
-    await otpService.sendOTPviaSMS(phoneNumber, otp);
+    // await otpService.sendOTPviaSMS(phoneNumber, otp);
 
     console.log(`OTP sent to ${phoneNumber}`);
     res.send('OTP sent');

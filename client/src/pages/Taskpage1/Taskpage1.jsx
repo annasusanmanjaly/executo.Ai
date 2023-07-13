@@ -39,7 +39,7 @@ function Taskpage1() {
                     borderRadius="10px"
                     baseBgColor="#D9D9D9"
                     bgColor="#43C59D" />
-                <h5 className='text-[#237E62] text-sm  ml-[6rem] mt-[6px] font-bold'>Skipped a day ? Reschedule</h5>
+                {/* <h5 className='text-[#237E62] text-sm  ml-[6rem] mt-[6px] font-bold'>Skipped a day ? Reschedule</h5> */}
 
             </div>
             <div className='mt-[70px]'>
