@@ -4,10 +4,12 @@ import './Userdetails.css';
 import axios from 'axios';
 import { AuthContext } from '../../context/Authcontext';
 
+
 function Userdetails() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const { user } = useContext(AuthContext);
+  console.log("user",user)
 
   const handleNameChange = (event) => {
     setName(event.target.value);

@@ -32,6 +32,7 @@ function Login() {
     const userData = {
       phoneNumber: phoneNumber,
     }
+    
     login(userData)
     // Send a POST request to your backend endpoint '/login' with the phone number
     fetch('http://localhost:3000/login', {
