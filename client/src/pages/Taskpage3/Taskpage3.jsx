@@ -25,4 +25,4 @@ function Taskpage3() {
 
 }
 
-export default Taskpage3
+export default Taskpage3;

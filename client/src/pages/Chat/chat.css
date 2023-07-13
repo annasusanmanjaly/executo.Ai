@@ -3,12 +3,12 @@
     padding: 0px;
     box-sizing:border-box;
 }
-body{
+/* body{
     font-family:  'Roboto',sans-serif;
     height: 100vh;
     display: flex;
     justify-content: center;
-}
+} */
 .app{
     position: fixed;
     height: 100%;
@@ -16,5 +16,107 @@ body{
     max-width: 600px;
     background: #fff;
     border-left: 1px solid #eee;
-    border: 2pxsolid #eee3
+    border-right: 1px solid #eee3
+}
+
+.app > .screen {
+    display: none;
+}
+.app > .screen.active {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.chat-screen .header {
+    background: #24806B;
+    height: 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px 20px;
+
+}
+.chat-screen .header .logo {
+    font-size: 18px;
+    color: #eee;
+    font-weight: 600;
+}
+
+.chat-screen .header button {
+    padding: 5px 10px;
+    border: 1px solid #eee;
+    background: transparent;
+    color: #eee;
+    font-size: 15px;
+    cursor: pointer;
+    outline: none;
+
+}
+.chat-screen .messages {
+    width: 100%;
+    height: calc(100% - 100px);
+    background: #f5f5f5;
+    overflow: auto;
+
+}
+
+.chat-screen .messages .message {
+    display:flex;
+    padding: 10px;
+}
+.chat-screen .messages .message > div {
+    max-width: 80%;
+    background: #fff;
+    box-shadow: 0px 0px 20px 5px rgba(0,0,0,0.05);
+    padding: 10px;
+    
+}
+.chat-screen .messages .message.my-message {
+    justify-content: flex-end;
+}
+.chat-screen .messages .message .other-message {
+    justify-content: flex-start;
+    border-radius: 50px;
+}
+
+.chat-screen .messages .message .name {
+    font-size: 130x;
+    color:#555;
+    margin-bottom: 5px;
+}
+.chat-screen .messages .message  .text {
+    word-wrap: break-word;
+    
+
+}
+.chat-screen .messages .update {
+    text-align: center;
+    padding: 10px;
+    font-style: italic;
+    
+    
+}
+.chat-screen .typebox {
+    width: 100%;
+    height: 50px;
+    font-size: 18px;
+
+}
+.chat-screen .typebox input {
+    flex: 1;
+    height: 50px;
+    width: 80%;
+    font-size:18px;
+    
+}
+.chat-screen .typebox button {
+    width:20%;
+    height: 100%;
+    background: #24806B;
+    color: #eee;
+    font-size: 16px;
+    outline: none;
+    border: none;
+    cursor: pointer;
 }
