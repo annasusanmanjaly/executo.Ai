@@ -37,11 +37,12 @@ function insertUserDetails(name, email, phoneNumber) {
       if (error) {
         reject(error);
       } else {
-        resolve(results.insertId);
+        resolve(results.insertId)
       }
     });
   });
 }
+
 
 
 module.exports = {
