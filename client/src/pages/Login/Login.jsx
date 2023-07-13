@@ -32,8 +32,6 @@ function Login() {
     const userData = {
       phoneNumber: phoneNumber,
     }
-    
-    login(userData)
     // Send a POST request to your backend endpoint '/login' with the phone number
     fetch('http://localhost:3000/login', {
       method: 'POST',
@@ -45,6 +43,7 @@ function Login() {
       .then((response) => {
         if (response.ok) {
           console.log('OTP sent successfully');
+          localStorage.setItem('userData', JSON.stringify(userData));
           // Handle successful OTP sent response, such as showing a success message
         } else {
           console.error('Failed to send OTP');
@@ -93,7 +92,8 @@ function Login() {
           </div>
         </div>
       ) : (
-        <Otp handleLoginchange={handleLoginchange} phoneNumber={phoneNumber}/>
+        <Otp handleLoginchange={handleLoginchange} phoneNumber={phoneNumber} />
+        // <h1>hi</h1>
       )}
     </div>
   );

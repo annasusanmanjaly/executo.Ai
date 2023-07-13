@@ -30,14 +30,14 @@ function insertUser(phoneNumber) {
   });
 }
 
-function insertUserDetails(name, email, phoneNumber) {
+function updateUserDetails(name, email, phoneNumber) {
   return new Promise((resolve, reject) => {
-    const userQuery = 'INSERT INTO users (name, email) SELECT ?, ? FROM DUAL WHERE EXISTS (SELECT * FROM users WHERE phone_number = ?)';
+    const userQuery = 'UPDATE users SET name = ?, email = ? WHERE phone_number = ?';
     connection.query(userQuery, [name, email, phoneNumber], (error, results) => {
       if (error) {
         reject(error);
       } else {
-        resolve(results.insertId)
+        resolve(results.affectedRows);
       }
     });
   });
@@ -45,8 +45,9 @@ function insertUserDetails(name, email, phoneNumber) {
 
 
 
+
 module.exports = {
   getUserByPhoneNumber,
   insertUser,
-  insertUserDetails
+  updateUserDetails
 };

@@ -5,6 +5,7 @@ import chat from '../../assets/chat.png'
 import { useNavigate } from 'react-router-dom'
 import { useSocket } from '../../context/Socketprovider';
 import { AuthContext } from '../../context/Authcontext';
+
 function Chatroom() {
   
   const [room,setRoom] = useState('')

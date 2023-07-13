@@ -10,6 +10,7 @@ import Taskpage3 from './pages/Taskpage3/Taskpage3';
 import Profile from './pages/Profile/Profile';
 import Chatroom from './pages/Chat/Chatroom';
 import Chats from './pages/Chat/Chats';
+import Goals from './pages/Goals/Goals';
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
       <Route path='/profile' element={<Profile />} />
       <Route path='/chatroom' element={<Chatroom/>}/>
       <Route path='/chatroom/:roomId' element={<Chats/>} />
+      <Route path='/goals' element={<Goals/>}/>
     </Routes>
     
   );
