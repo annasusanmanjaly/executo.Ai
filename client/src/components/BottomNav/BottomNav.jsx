@@ -63,11 +63,11 @@ export default function BottomNav() {
           icon={renderIcon(<HomeIcon />, 'home')}
         />
       </Link>
-      <Link to="/check">
+      <Link to="/goals">
         <BottomNavigationAction
-          label="Check"
-          value="check"
-          icon={renderIcon(<FactCheckTwoToneIcon />, 'check')}
+          label="goals"
+          value="goals"
+          icon={renderIcon(<FactCheckTwoToneIcon />, 'goals')}
         />
       </Link>
       <Link to="/chatroom">
