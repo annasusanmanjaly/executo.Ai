@@ -16,6 +16,7 @@ const authController = require('./app/controllers/authController');
 const openaiController = require('./app/controllers/openaiController');
 const chatroomService = require('./app/services/chatroomService');
 const handleChatroomSocket = require('./app/sockets/chatroomSocket');
+const openaiService = require('./app/services/openaiService')
 const userDetailController = require('./app/controllers/userDetailController')
 const goalsController  = require('./app/controllers/goalsController')
 

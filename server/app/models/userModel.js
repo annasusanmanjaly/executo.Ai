@@ -30,10 +30,10 @@ function insertUser(phoneNumber) {
   });
 }
 
-function updateUserDetails(name, email, phoneNumber) {
+function updateUserDetails(name, email, phoneNumber, previewImage) {
   return new Promise((resolve, reject) => {
-    const userQuery = 'UPDATE users SET name = ?, email = ? WHERE phone_number = ?';
-    connection.query(userQuery, [name, email, phoneNumber], (error, results) => {
+    const userQuery = 'UPDATE users SET name = ?, email = ?, dp = ? WHERE phone_number = ?';
+    connection.query(userQuery, [name, email, previewImage, phoneNumber], (error, results) => {
       if (error) {
         reject(error);
       } else {
@@ -42,6 +42,7 @@ function updateUserDetails(name, email, phoneNumber) {
     });
   });
 }
+
 
 
 
