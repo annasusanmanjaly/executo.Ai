@@ -19,22 +19,12 @@ const connection = require('../../config/dbConfig');
 
 async function saveTaskInDatabase(task, goalID, day) {
   return new Promise((resolve, reject) => {
-    const tableName = `goal_${goalID}`; // Create a table name based on the goal ID
+    
 
-    const createTableSQL = `CREATE TABLE IF NOT EXISTS ${tableName} (
-      task_id INT AUTO_INCREMENT PRIMARY KEY,
-      task_name VARCHAR(255) NOT NULL,
-      day VARCHAR(10) NOT NULL
-    )`;
-
-    const insertTaskSQL = `INSERT INTO ${tableName} (task_name, day) VALUES (?, ?)`;
-    const values = [task, day];
+    const insertTaskSQL = `INSERT INTO tasks (task_name,goal_id, day) VALUES (?, ?,?)`;
+    const values = [task,goalID, day];
 
     // Create the table if it doesn't exist
-    connection.query(createTableSQL, (error) => {
-      if (error) {
-        reject(error);
-      } else {
         // Insert the task into the corresponding table
         connection.query(insertTaskSQL, values, (error, results) => {
           if (error) {
@@ -43,8 +33,6 @@ async function saveTaskInDatabase(task, goalID, day) {
             resolve(results.insertId);
           }
         });
-      }
-    });
   });
 }
 

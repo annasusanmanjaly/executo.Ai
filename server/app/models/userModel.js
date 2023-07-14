@@ -32,7 +32,7 @@ function insertUser(phoneNumber) {
 
 function updateUserDetails(name, email, phoneNumber, previewImage) {
   return new Promise((resolve, reject) => {
-    const userQuery = 'UPDATE users SET name = ?, email = ?, picture = ? WHERE phone_number = ?';
+    const userQuery = 'UPDATE users SET name = ?, email = ?, dp = ? WHERE phone_number = ?';
     connection.query(userQuery, [name, email, previewImage, phoneNumber], (error, results) => {
       if (error) {
         reject(error);
