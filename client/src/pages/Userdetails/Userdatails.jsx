@@ -35,7 +35,7 @@ function Userdetails() {
   const handleSubmit = () => {
     // Create an object with the email and name values
     const phoneNumber = items.phoneNumber;
-    const userData = { name, email, phoneNumber };
+    const userData = { name, email, phoneNumber , previewImage };
 
     // Make a POST request to the backend API
     axios

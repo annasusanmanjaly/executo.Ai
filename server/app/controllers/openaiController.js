@@ -1,21 +1,41 @@
 const { callOpenAI } = require('../services/openaiService');
 const connection = require('../../config/dbConfig');
 
+// async function saveTaskInDatabase(task, goalID, day) {
+//   return new Promise((resolve, reject) => {
+//     console.log("task nte goalID",goalID)
+//     const sql = 'INSERT INTO tasks (task_name, goal_id, day) VALUES (?, ?, ?)';
+//     const values = [task, goalID, day];
+
+//     connection.query(sql, values, (error, results) => {
+//       if (error) {
+//         reject(error);
+//       } else {
+//         resolve(results.insertId);
+//       }
+//     });
+//   });
+// }
+
 async function saveTaskInDatabase(task, goalID, day) {
   return new Promise((resolve, reject) => {
-    console.log("task nte goalID",goalID)
-    const sql = 'INSERT INTO tasks (task_name, goal_id, day) VALUES (?, ?, ?)';
-    const values = [task, goalID, day];
+    
 
-    connection.query(sql, values, (error, results) => {
-      if (error) {
-        reject(error);
-      } else {
-        resolve(results.insertId);
-      }
-    });
+    const insertTaskSQL = `INSERT INTO tasks (task_name,goal_id, day) VALUES (?, ?,?)`;
+    const values = [task,goalID, day];
+
+    // Create the table if it doesn't exist
+        // Insert the task into the corresponding table
+        connection.query(insertTaskSQL, values, (error, results) => {
+          if (error) {
+            reject(error);
+          } else {
+            resolve(results.insertId);
+          }
+        });
   });
 }
+
 
 async function createGoalInDatabase(goal, day) {
   return new Promise((resolve, reject) => {

@@ -13,7 +13,7 @@ async function callOpenAI(goal,day) {
     const response = await openai.createCompletion({
       model: "text-davinci-003",
       prompt: prompt,
-      max_tokens:400 ,
+      max_tokens:2048 ,
       temperature: 0,
       // stream: true
     });
@@ -26,6 +26,44 @@ async function callOpenAI(goal,day) {
   }
 }
 
+// openAIServices.js
+
+// ...
+
+async function retrieveGoalsDataMiddleware(req, res, next) {
+  try {
+    const goalsData = await retrieveGoalsData(phoneNumber);
+
+    res.json(goalsData);
+  } catch (error) {
+    console.error('Error retrieving goals data:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+}
+
+// Function to retrieve data from the "goals" table based on phone number
+async function retrieveGoalsData(phoneNumber) {
+  try {
+    // Query to retrieve data from the "goals" table based on phone number
+    const query = 'SELECT * FROM goals WHERE phonenumber = $1;';
+    const values = [phoneNumber];
+
+    // Execute the query with the provided phone number as a parameter
+    const result = await client.query(query, values);
+    // Return the retrieved data
+    return result.rows;
+  } catch (error) {
+    // Handle any errors that occurred during the data retrieval process
+    console.error('Error retrieving goals data:', error);
+    throw error;
+  }
+}
+
+// ...
+
+
+
 module.exports = {
-  callOpenAI
+  callOpenAI,
+  retrieveGoalsDataMiddleware
 };
