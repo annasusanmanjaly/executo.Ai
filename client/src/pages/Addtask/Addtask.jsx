@@ -7,6 +7,8 @@ function Addtask() {
   const [goal,setGoal] = useState('')
   const [day,setDay] = useState('')
   console.log(goal,day)
+  const userData = JSON.parse(localStorage.getItem('userData'));
+  const phn = userData.phoneNumber
   const handleSetGoal = async ()=>{
     try {
       const response = await fetch('http://localhost:3000/prompt', {
@@ -14,7 +16,7 @@ function Addtask() {
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ goal,day })
+        body: JSON.stringify({ goal,day,phn })
       });
   
       if (response.ok) {

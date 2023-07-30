@@ -1,6 +1,8 @@
 
-import React,{useState} from 'react'
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import pic from '../../assets/pic.png';
+import { useParams, useLocation,useNavigate   } from 'react-router-dom';
 import Topnav from '../../components/Topnav/Topnav';
 import BottomNav from '../../components/BottomNav/BottomNav';
 import ProgressBar from "@ramonak/react-progress-bar";
@@ -8,27 +10,60 @@ import './Taskpage1.css'
 
 
 function Taskpage1() {
-
     const [total, setTotal] = useState(0);
+    const [tasks, setTasks] = useState([]);
+    // const [allchecked,setAllChecked]= useState(0)
 
   const handleCheckboxChange = (event) => {
     const isChecked = event.target.checked;
     const checkboxValue = parseInt(event.target.value);
-
     if (isChecked) {
       setTotal((prevTotal) => prevTotal + checkboxValue);
+      // setAllChecked(allchecked+1)
     } else {
       setTotal((prevTotal) => prevTotal - checkboxValue);
+      // setAllChecked(allchecked-1)
     }
   };
+    const { id } = useParams();
+    const { goalId } = useParams(); 
+    const location = useLocation();
+    const navigate = useNavigate()
+  const searchParams = new URLSearchParams(location.search);
+  const goalData = JSON.parse(searchParams.get('goal'));
+  const handleSubmit = () =>{
+    navigate('/taskpage3');
+  }
+    // console.log()
+    // console.log("goaldataaa",goalData)
+    useEffect(() => {
+      // Make a GET request to fetch tasks using the goalId
+      axios
+        .get(`http://localhost:3000/tasks`, {
+          params: {
+            goalId: goalData.id,
+            day: goalData.days_completed+1,
+          }
+        })
+        .then((response) => {
+          const tasksData = response.data; // Assuming response.data contains the tasks data
+          // Update your component state or do further processing with tasksData
+          setTasks(tasksData.tasks);
+        })
+        .catch((error) => {
+          console.error(error);
+          // Handle errors if needed
+        });
+    }, [goalId]);
+    console.log(tasks)
 
     return (
-        <div className='bg-[#F3F3F3]'>
+        <div className='bg-[#F3F3F3] h-screen'>
             <Topnav />
             <div>
                 <div className='flex flex-row mt-[1.5rem]'>
                     <h3 className='text-[#1F695D] text-xl font-semibold ml-3 mt-1 '>Progress</h3>
-                    <h3 className='text-[#1F695D] text-xl ml-auto mr-5 font-semibold'>Day 25</h3>
+                    <h3 className='text-[#1F695D] text-xl ml-auto mr-5 font-semibold'>Day {goalData?.days_completed+1}</h3>
                 </div>
                 <img src={pic} alt='pic' className='w-[150px] h-[150px] ml-[120px] mt-[1.5rem]' />
                 <ProgressBar
@@ -42,48 +77,32 @@ function Taskpage1() {
                 {/* <h5 className='text-[#237E62] text-sm  ml-[6rem] mt-[6px] font-bold'>Skipped a day ? Reschedule</h5> */}
 
             </div>
-            <div className='mt-[70px]'>
-                <h3 className='text-[#1F695D] font-bold text-lg ml-[35px] mt-[2.5rem]'> Day25 :Asynchronous JavaScript</h3>
+            <div className='mt-[30px]'>
+                <h3 className='text-[#1F695D] font-bold text-3xl justify-start ml-[2.3rem] mt-[rem]'>Goal : {goalData?goalData.goal_name : ''}</h3>
                 <br/>
-                <ul className="list-disc pl-8 space-y-2 ml-[20px]">
-                    <li>
-
-                        <label htmlFor="item1" className='text-[#5B5858]'>Understand asynchronous JS</label>
-                        
-                        <input type="checkbox" id="item1" className=" ml-[4rem] w-[24px] h-[24px]   checkbox-green "  onChange={handleCheckboxChange}  value='25'/>
-                        
-                    </li>
-                    
-                    <li>
-
-                        <label htmlFor="item2" className='text-[#5B5858]'>Event loop</label>
-                        <input type="checkbox" id="item2"className=" ml-[12rem]  w-[24px] h-[24px] checkbox-green "  onChange={handleCheckboxChange}  value='25'/>
-                        
-                    </li>
-                    
-                    <li>
-
-                        <label htmlFor="item3" className='text-[#5B5858]'>Callbacks,promises,async/await</label>
-                        <input type="checkbox" id="item3"className='ml-[3rem]  w-[24px] h-[24px] checkbox-green  '  onChange={handleCheckboxChange} value='25'/>
-                        
-                    </li>
-                    <li>
-
-                        <label htmlFor="item4" className='text-[#5B5858]'>Fetching Data,handling input</label>
-                        <input type="checkbox" id="item4"className=' ml-[4rem]  w-[24px] h-[24px] checkbox-green  '  onChange={handleCheckboxChange}  value='25'/>
-                        
-                    </li>
-
-                </ul>
-                <button
-            className='absolute left-[7.44%] right-[6.67%] top-[78.2%] bottom-[15.64%] text-white bg-[#43C59D] rounded-2xl font-medium text-lg leading-6 w-[335px] h-[52px] mt-[27px]'
-            
-          >
-            Submit
-          </button> 
-
-
-
+                <ul className="list-disc pl-8 space-y-3 ml-[20px]">
+                {tasks.map((task) => (
+                  <li key={task.id} className='flex flex-row'>
+                    <label htmlFor={`item${task.id}`} className='text-[#5B5858] text-lg w-[250px] font-medium'>{task.taskname}</label>
+                    <input
+                      type="checkbox"
+                      id={`item${task.id}`}
+                      className='ml-[1rem] w-[24px] h-[24px] checkbox-green'
+                      onChange={handleCheckboxChange}
+                      value='33'
+                    />
+                  </li>
+                ))}
+              </ul>
+              <button
+              className={`absolute left-[7.44%] right-[6.67%] top-[78.2%] bottom-[15.64%] text-white ${
+                total <= 99 ? 'bg-[#43C59D]' : 'bg-[#C5F0CC]'
+              } rounded-2xl font-medium text-lg leading-6 w-[335px] h-[52px] mt-[27px]`}
+              onClick={handleSubmit}C5F0CC
+              disabled={total <= 99}
+            >
+              Submit
+            </button> 
             </div>
             <BottomNav />
         </div>

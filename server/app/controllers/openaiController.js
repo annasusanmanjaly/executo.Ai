@@ -1,5 +1,6 @@
 const { callOpenAI } = require('../services/openaiService');
 const connection = require('../../config/dbConfig');
+const { getUserByPhoneNumber } = require('../models/userModel');
 
 // async function saveTaskInDatabase(task, goalID, day) {
 //   return new Promise((resolve, reject) => {
@@ -19,25 +20,27 @@ const connection = require('../../config/dbConfig');
 
 async function saveTaskInDatabase(task, goalID, day) {
   return new Promise((resolve, reject) => {
-    
+    // Convert the day format from "dayX" to X (e.g., "day1" to 1)
+    const dayNumber = parseInt(day.replace('Day', ''), 10);
+    console.log(dayNumber)
 
-    const insertTaskSQL = `INSERT INTO tasks (task_name,goal_id, day) VALUES (?, ?,?)`;
-    const values = [task,goalID, day];
+    const insertTaskSQL = `INSERT INTO tasks (taskname, goal_id, day) VALUES (?, ?, ?)`;
+    const values = [task, goalID, dayNumber];
 
-    // Create the table if it doesn't exist
-        // Insert the task into the corresponding table
-        connection.query(insertTaskSQL, values, (error, results) => {
-          if (error) {
-            reject(error);
-          } else {
-            resolve(results.insertId);
-          }
-        });
+    // Insert the task into the corresponding table
+    connection.query(insertTaskSQL, values, (error, results) => {
+      if (error) {
+        reject(error);
+      } else {
+        resolve(results.insertId);
+      }
+    });
   });
 }
 
 
-async function createGoalInDatabase(goal, day) {
+
+async function createGoalInDatabase(goal, day, userId ) {
   return new Promise((resolve, reject) => {
     const selectSql = 'SELECT id FROM goals WHERE goal_name = ?'
     const selectValues = [goal]
@@ -51,8 +54,8 @@ async function createGoalInDatabase(goal, day) {
           resolve(selectResults[0].id);
         } else {
           // Goal doesn't exist, insert it into the database
-          const insertSql = 'INSERT INTO goals (goal_name, duration, start_date) VALUES (?, ?, ?)';
-          const insertValues = [goal, day, new Date()];
+          const insertSql = 'INSERT INTO goals (goal_name, duration, start_date,user_id) VALUES (?, ?, ?,?)';
+          const insertValues = [goal, day, new Date() , userId];
 
           connection.query(insertSql, insertValues, (insertError, insertResults) => {
             if (insertError) {
@@ -69,7 +72,9 @@ async function createGoalInDatabase(goal, day) {
 
 async function generateOpenAIResponse(req, res) {
   try {
-    const { goal, day } = req.body;
+    const { goal, day, phn } = req.body;
+    const user =await getUserByPhoneNumber(phn);
+    const userId=user.id;
     let goalID;
     // Call the OpenAI service function
     const response = await callOpenAI(goal, day);
@@ -89,7 +94,7 @@ async function generateOpenAIResponse(req, res) {
 //   }
 // });
     if (goal && day) {
-      goalID = await createGoalInDatabase(goal, day); // Store the goal ID in the goalID variable
+      goalID = await createGoalInDatabase(goal, day , userId); // Store the goal ID in the goalID variable
     }
 
     // Log the OpenAI response 
@@ -105,10 +110,10 @@ async function generateOpenAIResponse(req, res) {
     for (const day  in data) {
       // Access the tasks for the current day
       const tasks = data[day];
-      
+      console.log(day);
       // console.log(`Day: ${day}`);
       // Iterate over each task in the tasks array for the current day
-      tasks.forEach((task, index) => {
+        tasks.forEach((task, index) => {
         console.log("goalIDnte foreach",goalID)
         tasks && saveTaskInDatabase(task,goalID,day)
         console.log(`${task}`)

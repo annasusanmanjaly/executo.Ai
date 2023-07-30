@@ -20,7 +20,7 @@ function App() {
       <Route path='/userdetails' element={<Userdetails />} />
       <Route path='/home' element={<Home />} />
       <Route path='/addtask' element={<Addtask />} />
-      <Route path='/taskpage1' element={<Taskpage1 />} />
+      <Route path='/taskpage1/:goalId' element={<Taskpage1 />} />
       <Route path='/Otp' element={<Otp />} />
       <Route path='/taskpage3' element={<Taskpage3 />} />
       <Route path='/profile' element={<Profile />} />
