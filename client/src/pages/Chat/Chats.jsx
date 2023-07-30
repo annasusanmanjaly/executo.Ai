@@ -78,6 +78,13 @@ function Chats() {
             />
             <button id='send-message' onClick={sendMessage}>Send</button>
           </div>
+          
+          
+        </div>
+        <div className=' typebox' >
+          <input type='text'  id='message-input' />
+          <button id='send-message'>Send</button>
+ 
         </div>
       </div>
     </>

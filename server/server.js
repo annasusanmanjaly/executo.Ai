@@ -28,6 +28,7 @@ app.post('/login', authController.login);
 app.post('/verify', authController.verify);
 app.post('/prompt', openaiController.generateOpenAIResponse);
 app.post('/saveuser',userDetailController.saveUserDetails)
+app.get('/readuser',userDetailController.readUserDetails)
 app.get('/goals',goalsController.getGoalsByPhoneNumber)
 <<<<<<< HEAD
 app.get('/messages', chatController.getAllMessages);

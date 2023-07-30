@@ -19,7 +19,7 @@ function Home() {
        </div>
        <div className='flex flex-row'>
        <b><h2 className='text-[#1F695D] text-2xl ml-4 mt-6'>Today your task</h2></b>
-       <Link to="/Addtask">
+       <Link to="/goals">
        <p className=' text-[blue] ml-[7rem] mt-[1.5rem]' >view All </p>
        </Link>
        </div>

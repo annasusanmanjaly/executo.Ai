@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import BottomNav from '../../components/BottomNav/BottomNav';
 import profilebg from '../../assets/profilebg.png';
 import profile from '../../assets/profile.png';
@@ -8,14 +8,19 @@ import phone from '../../assets/phone.png';
 import sticker1 from '../../assets/sticker1.png';
 import sticker2 from '../../assets/sticker2.png';
 import streak from '../../assets/streak.png';
+import axios from 'axios';
+import profile2 from '../../assets/profile2.jpg';
+
 
 function Profile() {
-  const [aboutText, setAboutText] = useState("Hi, I'm good");
+  const [aboutText, setAboutText] = useState("add bio");
   const [isEditing, setIsEditing] = useState(false);
   const [newAboutText, setNewAboutText] = useState('');
   const [addressText, setAddressText] = useState('cusat');
   const [isAddressEditing, setIsAddressEditing] = useState(false);
   const [newAddressText, setNewAddressText] = useState('');
+  const [userDetails, setUserDetails] = useState(null);
+
 
   const handleEditAboutClick = () => {
     setIsEditing(true);
@@ -53,13 +58,55 @@ function Profile() {
     setNewAddressText(e.target.value);
   };
 
+  useEffect(() => {
+    // Assuming you have the phone number stored in local storage
+    const userData = JSON.parse(localStorage.getItem('userData'));
+
+    const phoneNumber = userData.phoneNumber
+
+    // Fetch the user details when the component mounts
+    fetchUserDetails(phoneNumber);
+  }, []);
+
+  const fetchUserDetails = (phoneNumber) => {
+    axios.get(`http://localhost:3000/readuser`, {
+      params: { phoneNumber },
+    })
+    .then((response) => {
+      const data = response.data;
+      console.log(data)
+      setUserDetails(data);
+      setAboutText(data.about || aboutText);
+      setAddressText(data.address || addressText);
+    })
+    .catch((error) => {
+      console.error('Error fetching user details:', error);
+    });
+  };
+
+  
+  
+  // const bufferData = { type: 'Buffer', data: [userDetails ? userDetails.dp : 'Loading...'] };
+  // console.log("userDetails",userDetails.name)
   return (
     <>
-      <div className="flex-grow flex flex-col mb-[2rem]">
+      <div className="flex-grow flex flex-col mb-[2rem] ">
         <img src={profilebg} alt="profilebg" className="w-full" />
-        <img src={profile} alt="profile" className="mt-[-6rem] mx-auto" />
-        <h2 className='text-2xl ml-[7rem]'>Dheeraj Dileep</h2>
+        <img src={profile2} alt="profile2" className="mt-[-4rem] mx-auto h-[8rem] rounded-full" />
+
+        <h2 className='text-2xl ml-[9rem]'>
+          {userDetails ? userDetails.name : 'Loading...'}
+        </h2>
       </div>
+      <div className='text-xl text-[#24806B] '>Phone Number:</div>
+      <div className='ml-[9rem] mt-[-1.5rem] pb-[1rem]'>
+           {userDetails ? userDetails.phone_number : 'Loading...'}
+        </div>
+      <div className='text-xl text-[#24806B]'>Email:</div>
+      <div className='ml-[3.5rem] mt-[-1.5rem] pb-[2rem]'>
+          {userDetails ? userDetails.email : 'Loading...'}
+        </div>
+
       <div className='bg-[#F3F3F3] flex flex-row shadow-inner mb-[0.2rem]'>
         <img src={i} alt='i' className='ml-[2rem] mt-[0.5rem] mb-[0.5rem] mr-[1rem] pt-[1rem] pb-[1rem]' />
         <div className='flex flex-col'>

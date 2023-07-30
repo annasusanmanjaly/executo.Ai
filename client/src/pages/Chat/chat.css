@@ -103,12 +103,13 @@
     font-size: 18px;
 
 }
-.chat-screen .typebox input {
+ .typebox input {
     flex: 1;
     height: 50px;
     width: 80%;
-    font-size:18px;
-    
+    font-size: 18px;
+    border: 1px solid #ccc; /* Add border with a color (e.g., #ccc) */
+    padding: 10px; /* Optionally, you can add padding to create spacing inside the input field */
 }
 .chat-screen .typebox button {
     width:20%;

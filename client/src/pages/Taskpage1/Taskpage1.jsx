@@ -58,8 +58,9 @@ function Taskpage1() {
     console.log(tasks)
 
     return (
-        <div className='bg-[#F3F3F3] h-screen'>
+        <div className='bg-[#F3F3F3] h-full '>
             <Topnav />
+            <div className='overflow-y-auto'>
             <div>
                 <div className='flex flex-row mt-[1.5rem]'>
                     <h3 className='text-[#1F695D] text-xl font-semibold ml-3 mt-1 '>Progress</h3>
@@ -95,14 +96,15 @@ function Taskpage1() {
                 ))}
               </ul>
               <button
-              className={`absolute left-[7.44%] right-[6.67%] top-[78.2%] bottom-[15.64%] text-white ${
+              className={`absolute left-[7.44%] right-[6.67%]   text-white ${
                 total <= 99 ? 'bg-[#43C59D]' : 'bg-[#C5F0CC]'
-              } rounded-2xl font-medium text-lg leading-6 w-[335px] h-[52px] mt-[27px]`}
-              onClick={handleSubmit}C5F0CC
+              } rounded-2xl font-medium text-lg leading-6 w-[335px] h-[52px] mt-[40px] !mb-[2rem]`}
+              onClick={handleSubmit}
               disabled={total <= 99}
             >
               Submit
             </button> 
+            </div>
             </div>
             <BottomNav />
         </div>
