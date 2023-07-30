@@ -28,6 +28,7 @@ app.post('/verify', authController.verify);
 app.post('/prompt', openaiController.generateOpenAIResponse);
 app.post('/saveuser',userDetailController.saveUserDetails)
 app.get('/goals',goalsController.getGoalsByPhoneNumber)
+app.get('/tasks',goalsController.getTasksForGoal)
 
 // Socket.io setup
 

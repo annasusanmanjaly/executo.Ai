@@ -20,6 +20,7 @@
     "react-icons": "^4.9.0",
     "react-otp-input": "^3.0.2",
     "react-phone-number-input": "^3.2.20",
+    "react-router": "^6.0.0",
     "react-router-dom": "^6.11.1",
     "socket.io-client": "^4.6.2"
   },
