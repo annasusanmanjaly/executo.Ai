@@ -12,7 +12,7 @@ function Chatroom() {
   console.log(room)
   const navigate = useNavigate()
   const socket = useSocket()
-  const userData = useContext(AuthContext)
+  const userData = JSON.parse(localStorage.getItem('userData'));
   // const [createRoomTriggered,setCreateRoomTriggered] = useState(null)
   // const [joinRoomTriggered,setJoinRoomTriggered] = useState(null)
 
