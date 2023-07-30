@@ -42,7 +42,31 @@ async function sendMessage(req, res) {
   }
 }
 
+async function exitChatroom(req, res) {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const { phoneNumber, chatroomName } = req.body;
+      console.log("PhoneNumber:", phoneNumber);
+      console.log("ChatroomName:", chatroomName);
+
+      // Call the exitChatroomModel function to delete the user from the chatroom_users table
+      await chatroomModel.exitChatroomModel(chatroomName, phoneNumber);
+
+      // Send a successful response with status code 200
+      res.sendStatus(200);
+      resolve(); // Resolve the Promise if the operation is successful
+    } catch (error) {
+      console.error('Error exiting chatroom:', error);
+
+      // Send an error response with status code 500 and the error message in JSON format
+      res.status(500).json({ error: 'Internal server error' });
+      reject(error); // Reject the Promise with an error if there's an issue
+    }
+  });
+}
+
 module.exports = {
   getAllMessages,
   sendMessage,
+  exitChatroom
 };

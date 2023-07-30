@@ -12,7 +12,8 @@ const handleChatroomSocket = (io) => {
         console.log(`Socket ${socket.id} joined room ${room}`);
 
         // Store room information in the database
-        await chatroomService.createChatroomService(room,userData);
+        const chatid = await chatroomService.createChatroomService(room,userData);
+        console.log(chatid)
 
         // Broadcast a message to all clients in the room
         io.to(room).emit('userJoined', { room, userId: socket.id });

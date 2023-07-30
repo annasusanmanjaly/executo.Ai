@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios'; // Import Axios
+import { useParams,useLocation } from 'react-router-dom'; 
 
 import './chat.css';
 
@@ -7,6 +8,43 @@ function Chats() {
   const [messages, setMessages] = useState([]);
   const [inputMessage, setInputMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const { roomId } = useParams(); // Get the chatroomName from the URL
+  const userData = JSON.parse(localStorage.getItem('userData'));
+  const phn = userData.phoneNumber
+  console.log("phn",phn)
+  const location = useLocation();
+  // Rest of your code...
+  console.log("chatroomName",roomId)
+
+  const handleExitChat = async () => {
+    try {
+      const response = await axios.delete(`http://localhost:3000/messages`, {
+        data: {
+          phoneNumber: phn,
+          chatroomName: roomId,
+        },
+      });
+  
+      if (response.status === 200 && response.statusText === "OK") {
+        console.log('Chatroom exit successful.');
+        window.location.replace("/chatroom");
+        // Perform any additional actions or cleanup on exiting the chatroom
+      } else {
+        console.log('Unexpected response:', response.status, response.statusText);
+        // Handle unexpected responses here
+      }
+    } catch (error) {
+      console.error('Error exiting chat:', error);
+      // Handle the error and provide feedback to the user if needed
+    }
+  };
+
+  
+  
+  
+  
+  
+  
 
   useEffect(() => {
     fetchMessages();
@@ -49,7 +87,7 @@ function Chats() {
         <div className='screen chat-screen active '>
           <div className='header'>
             <div className="logo">Chatroom</div>
-            <button id='exit-chat'>Exit</button>
+            <button id='exit-chat' onClick={handleExitChat}>Exit</button>
           </div>
           <div className="messages">
             {!isLoading && messages ? (
@@ -78,7 +116,6 @@ function Chats() {
             />
             <button id='send-message' onClick={sendMessage}>Send</button>
           </div>
-          
           
         </div>
         <div className=' typebox' >

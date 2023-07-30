@@ -7,20 +7,29 @@ const createChatroomService = (name, userData) => {
     try {
       const chatroom = await chatroomModel.getChatroomByName(name);
       const user = await getUserByPhoneNumber(userData.phoneNumber);
-      // console.log(user);
       const userId = user.id;
+      let chatroomId;
+
       if (chatroom) {
-        await chatroomController.joinChatRoom(name, userId);
+        chatroomId = await chatroomController.joinChatRoom(chatroom.id, userId);
+        console.log("service",chatroomId)
       } else {
-        await chatroomController.createChatRoom(name, userId);
+        chatroomId = await chatroomController.createChatRoom(name, userId);
+        console.log("service",chatroomId)
       }
-      resolve(); // Resolve the Promise since the operation is successful
+
+      resolve(chatroomId); // Resolve the Promise with the chatroomId
     } catch (error) {
       console.error('Failed to create chatroom:', error);
       reject(new Error('Failed to create chatroom')); // Reject the Promise with an error if there's an issue
     }
   });
 };
+
+module.exports = {
+  createChatroomService,
+};
+
 
 module.exports = {
   createChatroomService,
