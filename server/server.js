@@ -19,6 +19,7 @@ const handleChatroomSocket = require('./app/sockets/chatroomSocket');
 const openaiService = require('./app/services/openaiService')
 const userDetailController = require('./app/controllers/userDetailController')
 const goalsController  = require('./app/controllers/goalsController')
+const chatController =require('./app/controllers/chatController')
 
 app.use(bodyParser.json());
 app.use(cors());
@@ -28,6 +29,8 @@ app.post('/verify', authController.verify);
 app.post('/prompt', openaiController.generateOpenAIResponse);
 app.post('/saveuser',userDetailController.saveUserDetails)
 app.get('/goals',goalsController.getGoalsByPhoneNumber)
+app.get('/messages', chatController.getAllMessages);
+app.post('/messages', chatController.sendMessage);
 
 // Socket.io setup
 

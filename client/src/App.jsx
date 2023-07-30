@@ -27,6 +27,7 @@ function App() {
       <Route path='/chatroom' element={<Chatroom/>}/>
       <Route path='/chatroom/:roomId' element={<Chats/>} />
       <Route path='/goals' element={<Goals/>}/>
+      {/* <Route path='/chats' element={<Chats/>}/> */}
     </Routes>
     
   );
