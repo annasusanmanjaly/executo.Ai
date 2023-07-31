@@ -33,8 +33,11 @@ app.get('/goals',goalsController.getGoalsByPhoneNumber)
 app.get('/messages', chatController.getAllMessages);
 app.post('/messages', chatController.sendMessage);
 app.get('/tasks',goalsController.getTasksForGoal)
+<<<<<<< HEAD
+=======
 app.delete('/messages',chatController.exitChatroom)
 app.put('/goalday',goalsController.updateCompletedDaysForGoal)
+>>>>>>> 6f35d8bfdcff7884d18d66b321ede4e087cb075e
 
 // Socket.io setup
 
