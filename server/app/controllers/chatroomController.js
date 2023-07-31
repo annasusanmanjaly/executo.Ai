@@ -4,34 +4,29 @@ const userModel = require('../models/userModel');
 const createChatRoom = async (name, userId) => {
   const query = 'INSERT INTO chatroom (name, created_at, created_by) VALUES (?, NOW(), ?)';
   try {
-    const result = await connection.promise().query(query, [name, userId]);
-    console.log(result);
+    const query = 'INSERT INTO chatroom (name, created_at) VALUES (?, NOW())';
+    const [result] = await connection.promise().query(query, [name]);
     return result.insertId;
   } catch (error) {
     console.error('Failed to create chatroom:', error);
-    return null;
+    throw new Error('Failed to create chatroom');
   }
 };
 
-const joinChatRoom = async (id, userId) => {
-  const query = 'INSERT IGNORE INTO chatroom_users (chatroom_id, user_id) VALUES (?, ?)';
+const joinChatRoom = async (name, userData) => {
   try {
-    const result = await connection.promise().query(query, [id, userId]);
-    if (result.affectedRows > 0) {
-      console.log(`User ${userId} joined chatroom ${id}`);
-      return true; // Return a success flag if the user successfully joins the chatroom
-    } else {
-      console.log(`User ${userId} is already a member of chatroom ${id}`);
-      return false; // Return a flag indicating that the user is already a member
-    }
+    const user = await userModel.getUserByPhoneNumber(userData.phoneNumber);
+    const userId = user.id;
+    const query = 'INSERT INTO chatroom_user (chatroom_id, user_id) VALUES (?, ?)';
+    await connection.promise().query(query, [name, userId]);
+    console.log(`User ${userId} joined chatroom ${name}`);
   } catch (error) {
     console.error('Failed to join chatroom:', error);
-    return false; // Return a failure flag if there's an error joining the chatroom
+    throw new Error('Failed to join chatroom');
   }
 };
 
 
 module.exports = {
   createChatRoom,
-  joinChatRoom,
 };
