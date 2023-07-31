@@ -50,23 +50,6 @@ function Userdetails() {
       });
   };
 
-  const handlePhotoChange = (event) => {
-    const file = event.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        // Perform any necessary actions with the selected photo
-        console.log('Selected photo:', file);
-        setPreviewImage(reader.result);
-      };
-      reader.readAsDataURL(file);
-      setSelectedFile(file);
-    } else {
-      setSelectedFile(null);
-      setPreviewImage(null);
-    }
-  };
-
   return (
     <div className='flex justify-center items-center flex-col'>
       <div className='useless'>

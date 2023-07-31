@@ -97,11 +97,11 @@ function Chats() {
               messages.map((message, index) => (
                 <div
                   key={index}
-                  className={message.sender === 'you' ? 'message my-message' : 'message other-message'}
+                  className={message.userId === "uo" ? 'message my-message' : 'message other-message'}
                 >
                   <div className='rounded-3xl w-[100px]'>
-                    <div className='text-gray-400'>{message.sender}</div>
-                    <div className='text'>{message.text}</div>
+                    <div className='text-gray-400'>{message.userId}</div>
+                    <div className='text'>{message.message}</div>
                   </div>
                 </div>
               ))
