@@ -20,9 +20,7 @@ function Userdetails() {
     }
   }, []);
 
-  const handlePhotoClick = () => {
-    fileInputRef.current.click();
-  };
+
 
   const handleNameChange = (event) => {
     setName(event.target.value);
@@ -35,13 +33,16 @@ function Userdetails() {
   const handleSubmit = () => {
     // Create an object with the email and name values
     const phoneNumber = items.phoneNumber;
-    const userData = { name, email, phoneNumber , previewImage };
+    const userdata = { name, email, phoneNumber  };
 
     // Make a POST request to the backend API
     axios
-      .post('http://localhost:3000/saveuser', userData)
+      .post('http://localhost:3000/saveuser', userdata)
       .then((response) => {
         console.log(response.data);
+        const newUserData = { ...items, name, email };
+        localStorage.setItem('userData', JSON.stringify(newUserData));
+        console.log(newUserData)
         // Handle the response from the backend if needed
       })
       .catch((error) => {
@@ -55,9 +56,9 @@ function Userdetails() {
       <div className='useless'>
         <label htmlFor='file-input' className='file-label'>
           {previewImage ? (
-            <img src={previewImage} alt='photo' className='rounded-full h-40 w-40 object-cover mx-auto mt-[7rem] ' onClick={handlePhotoClick} />
+            <img src={previewImage} alt='photo' className='rounded-full h-40 w-40 object-cover mx-auto mt-[7rem] ' />
           ) : (
-            <img src={photo} alt='photo' className='bio' onClick={handlePhotoClick} />
+            <img src={photo} alt='photo' className='bio'  />
           )}
           <span className='browse-btn'></span>
         </label>
@@ -66,7 +67,7 @@ function Userdetails() {
           id='file-input'
           accept='image/*'
           ref={fileInputRef}
-          onChange={handlePhotoChange}
+      
           style={{ display: 'none' }}
         />
       </div>

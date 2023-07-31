@@ -35,7 +35,7 @@ function Goals() {
           // Handle errors if needed
         });
     }
-  }, [goals]);
+  }, []);
   console.log(goals)
   return (
     <div>

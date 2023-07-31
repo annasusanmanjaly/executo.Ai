@@ -62,6 +62,7 @@ async function createGoalInDatabase(goal, day, userId ) {
               reject(insertError);
             } else {
               resolve(insertResults.insertId);
+              console.log("goal added")
             }
           });
         }
