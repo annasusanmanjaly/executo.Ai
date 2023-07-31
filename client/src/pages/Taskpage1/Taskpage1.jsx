@@ -124,9 +124,9 @@ const handleSubmit = () => {
               <button
               className={`absolute left-[7.44%] right-[6.67%]   text-white ${
                 total <= 99 ? 'bg-[#43C59D]' : 'bg-[#C5F0CC]'
-              } rounded-2xl font-medium text-lg leading-6 w-[335px] h-[52px] mt-[40px] !mb-[2rem]`}
-              onClick={handleSubmit}
-              disabled={total <= 98}
+              } rounded-2xl font-medium text-lg leading-6 w-[335px] h-[52px] mt-[27px]`}
+              onClick={handleSubmit}C5F0CC
+              disabled={total <= 99}
             >
               Submit
             </button> 
