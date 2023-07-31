@@ -14,7 +14,7 @@ function Chats() {
 
   const fetchMessages = async () => {
     try {
-      console.log("messages", messages)
+      console.log("messages", messages);
       setIsLoading(true); // Show loading state
       const response = await axios.get('http://localhost:3000/messages'); // Use Axios for GET request
       const data = response.data; // Axios response data is stored in the 'data' property
@@ -26,10 +26,17 @@ function Chats() {
     }
   };
 
+  const getPhoneNumber = () => {
+    // Get the phone number from localStorage
+    const userData = JSON.parse(localStorage.getItem('userData'));
+    return userData?.phoneNumber || ''; // Return an empty string if userData is not available
+  };
+
   const sendMessage = async () => {
     try {
-      const response = await axios.post('http://localhost:3000/messages', { // Use Axios for POST request
-        sender: 'you', // Replace 'you' with the actual sender's name or user ID
+      const phn = getPhoneNumber(); // Get the phone number from localStorage
+      const response = await axios.post('http://localhost:3000/messages', {
+        sender: phn, // Use the phoneNumber obtained from localStorage as the sender
         text: inputMessage,
       });
       const newMessage = response.data; // Axios response data is stored in the 'data' property
@@ -57,7 +64,7 @@ function Chats() {
               messages.map((message, index) => (
                 <div
                   key={index}
-                  className={message.sender === 'you' ? 'message my-message' : 'message other-message'}
+                  className={message.sender === getPhoneNumber() ? 'message my-message' : 'message other-message'}
                 >
                   <div className='rounded-3xl w-[100px]'>
                     <div className='text-gray-400'>{message.sender}</div>
@@ -78,13 +85,6 @@ function Chats() {
             />
             <button id='send-message' onClick={sendMessage}>Send</button>
           </div>
-          
-          
-        </div>
-        <div className=' typebox' >
-          <input type='text'  id='message-input' />
-          <button id='send-message'>Send</button>
- 
         </div>
       </div>
     </>
