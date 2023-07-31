@@ -1,6 +1,6 @@
 // taskModel.js
-
 const pool = require('../../config/dbConfig');
+
 // Function to get tasks by goal ID and day order
 async function getTasksByGoalIdAndDayOrder(goalId, currentDayOrder) {
   console.log('Fetching tasks for Goal ID:', goalId, 'and Day:', currentDayOrder);

@@ -18,8 +18,8 @@ const chatroomService = require('./app/services/chatroomService');
 const handleChatroomSocket = require('./app/sockets/chatroomSocket');
 const openaiService = require('./app/services/openaiService')
 const userDetailController = require('./app/controllers/userDetailController')
-const goalsController  = require('./app/controllers/goalsController')
-const chatController =require('./app/controllers/chatController')
+const goalsController = require('./app/controllers/goalsController')
+const chatController = require('./app/controllers/chatController')
 
 app.use(bodyParser.json());
 app.use(cors());
@@ -27,17 +27,14 @@ app.use(cors());
 app.post('/login', authController.login);
 app.post('/verify', authController.verify);
 app.post('/prompt', openaiController.generateOpenAIResponse);
-app.post('/saveuser',userDetailController.saveUserDetails)
-app.get('/readuser',userDetailController.readUserDetails)
-app.get('/goals',goalsController.getGoalsByPhoneNumber)
+app.post('/saveuser', userDetailController.saveUserDetails)
+app.get('/readuser', userDetailController.readUserDetails)
+app.get('/goals', goalsController.getGoalsByPhoneNumber)
 app.get('/messages', chatController.getAllMessages);
 app.post('/messages', chatController.sendMessage);
-app.get('/tasks',goalsController.getTasksForGoal)
-<<<<<<< HEAD
-=======
-app.delete('/messages',chatController.exitChatroom)
-app.put('/goalday',goalsController.updateCompletedDaysForGoal)
->>>>>>> 6f35d8bfdcff7884d18d66b321ede4e087cb075e
+app.get('/tasks', goalsController.getTasksForGoal)
+app.delete('/messages', chatController.exitChatroom)
+app.put('/goalday', goalsController.updateCompletedDaysForGoal)
 
 // Socket.io setup
 

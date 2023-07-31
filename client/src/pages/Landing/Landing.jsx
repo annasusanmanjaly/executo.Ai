@@ -4,10 +4,21 @@ import logo from '../../assets/logo.png';
 
 function Landing() {
   const navigate = useNavigate();
+  const userData = JSON.parse(localStorage.getItem('userData'));
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      navigate('/login');
+      if(userData.phoneNumber && userData.name){
+        navigate('/home');
+      }
+      else if(userData.phoneNumber && !userData.name)
+      {
+        navigate('/userdetails')
+      }
+      else
+      {
+        navigate('/login')
+      }
     }, 3000);
     return () => clearTimeout(timer);
   }, [navigate]);
