@@ -59,7 +59,50 @@ async function getTasksForGoal(req, res) {
   }
 }
 
+
+
+async function updateCompletedDaysForGoal(req, res) {
+  try {
+    const {goalId,day} = req.body// Assuming you are passing the goalId as a route parameter
+
+    // Assuming you want to update the 'completed_days' field in the goal document in the database
+    // Retrieve the current goal data from the database
+    const goal = await goalModel.getGoalById(goalId);
+    if (!goal) {
+      // No goal found for the given goalId
+      console.log('Goal not found');
+      return res.status(404).json({ error: 'Goal not found' });
+    }
+
+    const currentDayOrder = day;
+    // Save the updated goal document to the database
+    const updatedGoal = await goalModel.updateGoal(goalId,1);
+    const tasks = await taskModel.getTasksByGoalIdAndDayOrder(goalId, currentDayOrder);
+
+    // Check if tasks were found for the given goal and day
+    if (tasks.length > 0) {
+      // Update the completed field to true for each task of the current day
+      for (const task of tasks) {
+        task.completed = true;
+      }
+
+      // Save the updated tasks back to the database
+      await Promise.all(tasks.map((task) => taskModel.updateTask(task)));
+    } else {
+      console.log('No tasks found for the given goal and day.');
+    }
+
+    console.log('Completed days and tasks updated successfully');
+
+    res.status(200).json({ message: 'Completed days and tasks updated successfully' });
+  } catch (error) {
+    console.error('Error during updating completed days for goal:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+}
+
 module.exports = {
   getGoalsByPhoneNumber,
   getTasksForGoal,
+  updateCompletedDaysForGoal, // Add the new function to the exported module
 };

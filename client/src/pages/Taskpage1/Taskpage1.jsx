@@ -31,9 +31,35 @@ function Taskpage1() {
     const navigate = useNavigate()
   const searchParams = new URLSearchParams(location.search);
   const goalData = JSON.parse(searchParams.get('goal'));
-  const handleSubmit = () =>{
-    navigate('/taskpage3');
+
+const handleSubmit = () => {
+  // Assuming 'tasks' is an array of objects retrieved from somewhere.
+  if (tasks.length > 0) {
+    const goalId = tasks[0].goal_id;
+    const day = parseInt(tasks[0].day); // Convert day to a number and then increment
+    console.log("day",day)
+
+    // Data to be sent in the request body
+    const requestData = {
+      goalId: goalId,
+      day:day,
+    };
+
+    // Send the 'requestData' to the backend using an HTTP POST request
+    axios.put('http://localhost:3000/goalday', requestData)
+      .then((response) => {
+        // Handle the response from the backend here
+        console.log('Response from the backend:', response.data);
+        // If you want to navigate to '/taskpage3' after a successful response, you can do it here.
+        response.data && navigate('/taskpage3');
+      })
+      .catch((error) => {
+        // Handle any errors that occurred during the request.
+        console.error('Error:', error);
+      });
   }
+};
+
     // console.log()
     // console.log("goaldataaa",goalData)
     useEffect(() => {
@@ -54,7 +80,7 @@ function Taskpage1() {
           console.error(error);
           // Handle errors if needed
         });
-    }, [goalId]);
+    }, [goalData.days_completed]);
     console.log(tasks)
 
     return (
@@ -100,7 +126,7 @@ function Taskpage1() {
                 total <= 99 ? 'bg-[#43C59D]' : 'bg-[#C5F0CC]'
               } rounded-2xl font-medium text-lg leading-6 w-[335px] h-[52px] mt-[40px] !mb-[2rem]`}
               onClick={handleSubmit}
-              disabled={total <= 99}
+              disabled={total <= 98}
             >
               Submit
             </button> 
