@@ -3,21 +3,31 @@ const connection = require('../../config/dbConfig');
 const userModel = require('./userModel')
 
 // Function to get all messages
-function getAllMessages() {
-  return new Promise((resolve, reject) => {
-    // Perform the necessary database query to retrieve all messages
-    const query = 'SELECT * FROM groupchat';
-    connection.promise().query(query)
-      .then(([rows]) => {
-        const messages = rows;
-        console.log(messages); // Print the messages (optional)
-        resolve(messages);
-      })
-      .catch((error) => {
-        reject(error);
-      });
-  });
+async function getAllMessages(roomId) {
+  try {
+    const room = await getChatroomByName(roomId);
+    const idRoom = room.id;
+
+    return new Promise((resolve, reject) => {
+      // Perform the necessary database query to retrieve messages for the specific roomId
+      const query = 'SELECT * FROM groupchat WHERE room_id = ?';
+      connection.promise()
+        .query(query, [idRoom])
+        .then(([rows]) => {
+          const messages = rows;
+          console.log('Messages for Room ID', idRoom, ':', messages);
+          resolve(messages);
+        })
+        .catch((error) => {
+          reject(error);
+        });
+    });
+  } catch (error) {
+    console.error('Error while fetching room ID:', error);
+    throw error;
+  }
 }
+
 
 // Function to get a chatroom by name
 function getChatroomByName(name) {
@@ -38,16 +48,16 @@ function getChatroomByName(name) {
 }
 
 // Function to insert a new message into the database
-function insertMessage(sender, text) {
+function insertMessage(userId,message,idRoom) {
   return new Promise((resolve, reject) => {
     // Perform the necessary database query to insert a new message
-    const query = 'INSERT INTO messages (sender, text, timestamp) VALUES (?, ?, NOW())';
-    connection.promise().query(query, [sender, text])
+    const query = 'INSERT INTO groupchat (user_id, message,room_id, message_sent) VALUES (?, ?,?, NOW())';
+    connection.promise().query(query, [userId, message,idRoom])
       .then(([result]) => {
         const newMessage = {
           id: result.insertId,
-          sender,
-          text,
+          userId,
+          message,
           timestamp: new Date().toISOString(),
         };
         console.log(newMessage); // Print the new message (optional)

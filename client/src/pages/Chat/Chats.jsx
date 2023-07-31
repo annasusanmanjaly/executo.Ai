@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios'; // Import Axios
 import { useParams,useLocation } from 'react-router-dom'; 
-
 import './chat.css';
 
 function Chats() {
@@ -54,7 +53,9 @@ function Chats() {
     try {
       console.log("messages", messages)
       setIsLoading(true); // Show loading state
-      const response = await axios.get('http://localhost:3000/messages'); // Use Axios for GET request
+      const response = await axios.get('http://localhost:3000/messages',{
+        roomId : roomId,
+      }); // Use Axios for GET request
       const data = response.data; // Axios response data is stored in the 'data' property
       setMessages(data.messages);
       setIsLoading(false); // Hide loading state
@@ -67,8 +68,9 @@ function Chats() {
   const sendMessage = async () => {
     try {
       const response = await axios.post('http://localhost:3000/messages', { // Use Axios for POST request
-        sender: 'you', // Replace 'you' with the actual sender's name or user ID
-        text: inputMessage,
+        phoneNumber: phn, // Replace 'you' with the actual sender's name or user ID
+        message: inputMessage,
+        roomId : roomId
       });
       const newMessage = response.data; // Axios response data is stored in the 'data' property
       setMessages((prevMessages) => [...prevMessages, newMessage]);

@@ -1,10 +1,12 @@
 const chatroomModel = require('../models/chatroomModel');
+const userModel = require('../models/userModel')
 
 // Function to get all messages
 async function getAllMessages(req, res) {
   try {
     // Retrieve all messages from the database
-    const messages = await chatroomModel.getAllMessages();
+    const {roomId} = req.body
+    const messages = await chatroomModel.getAllMessages(roomId);
 
     if (messages.length > 0) {
       // Handle the retrieved messages as needed
@@ -23,16 +25,17 @@ async function getAllMessages(req, res) {
 // Function to send a new message
 async function sendMessage(req, res) {
   try {
-    const { sender, text } = req.body;
-    if (!sender || !text) {
+    const { phoneNumber, message,roomId } = req.body;
+    if (!phoneNumber || !message) {
       return res.status(400).json({ error: 'Sender and text are required fields.' });
     }
-
-    // Get the current timestamp in the correct format
-    const timestamp = new Date().toISOString();
-
+    const user = await userModel.getUserByPhoneNumber(phoneNumber)
+    const userId = user.id;
+    console.log(" user in chatcontr",user)
+    const room = await chatroomModel.getChatroomByName(roomId)
+    const idRoom = room.id;
     // Insert the new message into the database
-    const newMessage = await chatroomModel.insertMessage(sender, text, timestamp);
+    const newMessage = await chatroomModel.insertMessage(userId, message, idRoom);
 
     // Handle the new message as needed
     res.status(201).json(newMessage);
